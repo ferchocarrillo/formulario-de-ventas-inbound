@@ -54,7 +54,18 @@ class RechazosController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = Auth::user()->id;
+        $date1 = $request->input('claro');
+        $date2 = $request->input('tigo');
+        $date3 = $request->input('directv');
+        $date4 = $request->input('wow');
+        $date5 = $request->input('barrio');
+        $date6 = $request->input('otros');
+
+
+
+
+
+        $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
         $rechazos = new Rechazos();
         $rechazos->numero_de_celular             = $request ->numero_de_celular;
@@ -62,6 +73,10 @@ class RechazosController extends Controller
         $rechazos->documento                     = $request ->documento;
         $rechazos->causal                        = $request ->causal;
         $rechazos->linea                         = $request ->linea;
+        $rechazos->departamento                  = $request ->departamento;
+        $rechazos->ciudad                        = $request ->id_ciudad;
+        $rechazos->competencia                   = $date1." " .$date2." " .$date3." " .$date4." " .$date5." " .$date6;
+        $rechazos->modalidad                     = $request ->modalidad;
         $rechazos->frechazo                      = $request ->frechazo;
         $rechazos->observacion                   = $request ->observacion;
         $rechazos->agente                        = $user_id.','.$user_nombre;

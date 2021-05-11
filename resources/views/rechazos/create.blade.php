@@ -71,38 +71,38 @@ card{
     <div class="row">
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="claro" name="claro" id="claro">
+            <label class="form-check-label" for="claro">
               Claro
             </label>
           </div>&nbsp;&nbsp;&nbsp;
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="tigo" name="tigo" id="tigo">
+            <label class="form-check-label" for="tigo">
               Tigo
             </label>
           </div>&nbsp;&nbsp;&nbsp;
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="directv" name="directv" id="directv">
+            <label class="form-check-label" for="directv">
               Directv
             </label>
           </div>&nbsp;&nbsp;&nbsp;
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="wow" name="wow" id="wow">
+            <label class="form-check-label" for="wow">
               Wow
             </label>
           </div>&nbsp;&nbsp;&nbsp;
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="barrio" name="barrio" id="barrio">
+            <label class="form-check-label" for="barrio">
               Servicio de barrio
             </label>
           </div>&nbsp;&nbsp;&nbsp;
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="otros" name="otros" id="otros">
+            <label class="form-check-label" for="otros">
               Otros
             </label>
           </div></div></div></div>
@@ -113,15 +113,15 @@ card{
                 <div class="row">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="radio" value="c2c" name="modalidad" id="modalidad1">
+                        <label class="form-check-label" for="modalidad1">
                           C2C
                         </label>
                       </div>
                       &nbsp;&nbsp;&nbsp;
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
+                        <input class="form-check-input" type="radio" value="outbound" name="modalidad" id="modalidad2">
+                        <label class="form-check-label" for="modalidad2">
                             OUTBOUND
                         </label>
                       </div>
