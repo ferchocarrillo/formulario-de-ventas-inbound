@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\JhonatanPermission\Models\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use App\Departamentos;
 use App\Causales;
 use App\Linea;
 use App\User;
@@ -40,8 +41,9 @@ class RechazosController extends Controller
         $causales = Causales::all();
         $linea = Linea::all();
         $usuarios = User::all();
+        $depto = Departamentos::all();
         $user_id  = Auth::user()->id;
-        return view('rechazos/create',compact('causales','linea'));
+        return view('rechazos/create',compact('causales','linea','depto'));
     }
 
     /**

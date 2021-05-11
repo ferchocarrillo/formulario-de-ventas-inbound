@@ -3,6 +3,14 @@
 
 @section('content')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
+<style>
+
+card{
+    border-radius: 0.95rem;
+}
+
+</style>
 <div class="container">
     <div class="pull-right">
         <div class="col-md-12">
@@ -37,7 +45,7 @@
                         </select>
                         </div>
 
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
 
                         <select name="linea" id="linea" class="form-control"  required>
                             <option value="0">Linea</option>
@@ -46,6 +54,79 @@
                             @endforeach
                         </select>
                         </div>
+                        <div class="form-group col-md-4">
+                            <select name="departamento" id="departamento" class="form-control"  required>
+                               <option value="">Departamento</option>
+                               @foreach($depto as $departamento)
+                                   <option value="{{ $departamento->Nombre}}">{{ $departamento->Nombre }}</option>
+                               @endforeach
+                         </select>
+                           </div>
+                           <div class="form-group col-md-4">
+                                 <select name="id_ciudad" id="id_ciudad" class="form-control" placeholder="Ciudad o municipio" required></select>
+                             </div>
+<div class="form-group col-md-6">
+<div class="card" style="background: white; border-radius: 0.75rem">
+    <label for="competencia">Comnpetencia</label>
+    <div class="row">
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Claro
+            </label>
+          </div>&nbsp;&nbsp;&nbsp;
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Tigo
+            </label>
+          </div>&nbsp;&nbsp;&nbsp;
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Directv
+            </label>
+          </div>&nbsp;&nbsp;&nbsp;
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Wow
+            </label>
+          </div>&nbsp;&nbsp;&nbsp;
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Servicio de barrio
+            </label>
+          </div>&nbsp;&nbsp;&nbsp;
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+              Otros
+            </label>
+          </div></div></div></div>
+
+          <div class="form-group col-md-6">
+            <div class="card" style="background: white; border-radius: 0.75rem">
+                <label for="competencia">Modalidad de Gestión</label>
+                <div class="row">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          C2C
+                        </label>
+                      </div>
+                      &nbsp;&nbsp;&nbsp;
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            OUTBOUND
+                        </label>
+                      </div>
+                </div></div></div></div>
+                <div  class="row">
                         <div class="col-sm-3 col-form-label">
                             <label for="frechazo">Fecha de rechazo</label>
                             </div>
@@ -54,12 +135,8 @@
                           </div>
 
                             <div class="form-group col-md-6">
-                                <textarea  id ="observacion" name="observacion" class="form-control" rows="3" placeholder="Observaciones"></textarea>
+                                <textarea  id ="observacion" name="observacion" class="form-control" rows="3" placeholder="Observaciones" style="background: white"></textarea>
                             </div>
-
-
-
-
                         </form>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary btn-sm">
@@ -69,6 +146,7 @@
                             <i class="fa fa-ban"></i> atras
                             </button></a>
                         </div>
+                    </div>
                      </form>
 
                     <script src="{{asset('js/app.js')}}"></script>
