@@ -17,10 +17,11 @@
 <form name="f1" action="{{ url('/upgrade/'.$upgrade->id)}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
     @csrf
     @method('PATCH')
+    <input type="hidden" id="backoffice" name="backoffice" value="{{ $user_id}}">
     <div class="form-row">
    <div class="form-group col-md-6">
        <label for="nombres">Nombres</label>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control-new"
         id="nombres"
         placeholder="Nombres"
         name="nombres"
@@ -28,7 +29,7 @@
     </div>
     <div class="form-group col-md-6">
         <label for="documento">Numero</label>
-         <input type="number" class="form-control"
+         <input type="number" class="form-control-new"
          id="documento"
          placeholder="documento"
          name="documento"
@@ -36,7 +37,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="correo">Correo</label>
-             <input type="text" class="form-control"
+             <input type="text" class="form-control-new"
              id="correo"
              placeholder="Correo Electronico"
              name="correo"
@@ -54,7 +55,7 @@
 
          <div class="form-group col-md-6">
               <label for="number">Numero</label>
-              <input type="number" class="form-control"
+              <input type="number" class="form-control-new"
               id="numero"
               placeholder="Numero"
               name="numero"
@@ -62,7 +63,7 @@
             </div>
          <div class="form-group col-md-6">
               <label for="corte">Corte</label>
-              <input type="number" class="form-control"
+              <input type="number" class="form-control-new"
               id="corte"
               placeholder="Corte"
               name="corte"
@@ -71,7 +72,7 @@
 
         <div class="form-group col-md-6">
             <label for="planhistorico">Plan historico</label>
-            <input type="number" class="form-control"
+            <input type="number" class="form-control-new"
             id="planhistorico"
             placeholder="Plan historico"
             name="planhistorico"
@@ -80,7 +81,7 @@
 
            <div class="form-group col-md-6">
             <label for="planventa">Plan venta</label>
-            <input type="number" class="form-control"
+            <input type="number" class="form-control-new"
             id="planventa"
             placeholder="Plan venta"
             name="planventa"
@@ -89,7 +90,7 @@
 
            <div class="form-group col-md-4">
             <label for="activacion">Activacion</label>
-            <input type="text" class="form-control"
+            <input type="text" class="form-control-new"
             id="activacion"
             placeholder="Activacion"
             name="activacion"
@@ -98,7 +99,7 @@
 
            <div class="form-group col-md-4">
             <label for="ngrabacion">Numero de grabacion</label>
-            <input type="number" class="form-control"
+            <input type="number" class="form-control-new"
             id="ngrabacion"
             placeholder="numero de grabacion"
             name="ngrabacion"
@@ -108,7 +109,7 @@
 
            <div class="form-group col-md-4">
             <label for="orden">Numero de Orden</label>
-            <input type="number" class="form-control"
+            <input type="number" class="form-control-new"
             id="orden"
             placeholder="numero de Orden"
             name="orden"
@@ -117,7 +118,7 @@
 
            <div class="form-group col-md-12">
             <label for="observacion">Observacion</label>
-            <input type="text" class="form-control"
+            <input type="text" class="form-control-new"
             id="observacion"
             placeholder="observacion"
             name="observacion"
@@ -126,10 +127,10 @@
 
 
 
-   <div class="form-group col-md-6">
+   <div class="form-group col-md-4">
     <label for="revisados">Revision</label>
 
-     <select name="revisados" id="revisados" class="form-control"  required>
+     <select name="revisados" id="revisados" class="form-control-new"  required>
         <option value="">Revisión</option>
         @foreach($revisadoses as $revisados)
             <option value="{{ $revisados->estado}}">{{ $revisados->estado }}</option>
@@ -137,12 +138,19 @@
   </select>
     </div>
 
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
      <label for="estadorevisados">Estado de la revision</label>
-     <select name="estadorevisado" id="estadorevisado" class="form-control" placeholder="Estado de la revisión" required></select>
+     <select name="estadorevisado" id="estadorevisado" class="form-control-new" placeholder="Estado de la revisión" required></select>
  </div>
+
+ <div class="form-group col-md-4">
+    <label for="confronta">Confronta</label>
+    <span>
+        <a href="{{ asset('storage').'/'.$upgrade->confronta}}"><img src="{{ asset('storage').'/'.$upgrade->confronta}}" alt="" height="130" width="260"></a>
+    </span>
+    </div>
     <div class="form-group col-md-12">
-        <textarea class="form-control"  id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
+        <textarea class="form-control-new"  id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
         </div>
     </div>
 

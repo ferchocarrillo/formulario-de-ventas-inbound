@@ -14,6 +14,11 @@
             </center>
                     <form action="{{ url('/upgrade')}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                         {{csrf_field()}}
+
+                        <input type="hidden" id="agente" name="agente" value="{{ $user_id}}">
+                        <input type="hidden" id ="dia" name="dia" class="form-control" placeholder="hora" value="{{ $date }}" required>
+                        <input type="hidden" id ="hora" name="hora" class="form-control" placeholder="hora" value="{{ $hora }}" required>
+
                         <div class="form-row">
                         <div class="form-group col-md-6">
                             <input type="text" id ="nombres" name="nombres" class="form-control"  placeholder="Nombres y Apellidos" required>
@@ -53,33 +58,39 @@
                             </select>
                             </div>
                             <div class="form-group col-md-6">
-                                <select name="planadquiere" id="planadquiere" class="form-control"  required>
+                                <select name="planventa" id="planventa" class="form-control"  required>
                                       <option value="0">Plan que adquire</option>
                                       @foreach($planadquiere as $planadquieres)
                                           <option value="{{ $planadquieres->planadquiere }}">{{ $planadquieres->planadquiere }}</option>
                                       @endforeach
                                 </select>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="col-sm-2 col-form-label">
+                                    <label for="activacion">Activacion</label>
 
                                     <select name="activacion" id="activacion" class="form-control"  required>
-                                        <option value="0">Activacion</option>
+                                        <option value="0">Selecciona</option>
                                         @foreach($activacion as $activaciones)
                                             <option value="{{ $activaciones->activacion}}">{{ $activaciones->activacion }}</option>
                                         @endforeach
                                     </select>
                                     </div>
 
-                        <div class="form-group col-md-4">
-                            <input type="number" id ="ngrabacion" name="ngrabacion" class="form-control" placeholder="Numero de Grabacion" required>
+                        <div class="col-sm-2 col-form-label">
+                            <label for="ngrabacion">Numero de Grabacion</label>
+                            <input type="number" id ="ngrabacion" name="ngrabacion" class="form-control"  required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <input type="orden" id ="orden" name="orden" class="form-control" placeholder="Numero de Orden" required>
+                        <div class="col-sm-2 col-form-label">
+                            <label for="orden">Orden</label>
+                            <input type="orden" id ="orden" name="orden" class="form-control"  required>
                             </div>
+                            <div class="col-sm-6 col-form-label">
+                                <label for="confronta">Confronta</label>
+                                <input type="file" id ="confronta" name="confronta" class="form-control"  required>
+                                </div>
                         <div class="form-group col-md-12">
                             <textarea  id ="observacion" name="observacion" class="form-control" rows="3" placeholder="Observaciones" required></textarea>
                         </div>
-
 
                             </div>
 

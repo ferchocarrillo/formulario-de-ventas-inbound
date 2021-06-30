@@ -24,7 +24,7 @@ use App\Producto;
 use App\Planadquiere;
 use App\Corte;
 use App\Revisados;
-
+use Carbon\Carbon;
 use App\User;
 use stdClass;
 use Maatwebsite\Excel\Facades\Excel;
@@ -62,6 +62,12 @@ class PortaController extends Controller
      */
     public function create()
     {
+
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
         $planadquiere = Planadquiere::all();
@@ -69,7 +75,8 @@ class PortaController extends Controller
         $usuarios = User::all();
 
 
-        return view('porta.create',compact('depto','tipoCliente','origen','planadquiere', 'usuarios'));
+
+        return view('porta.create',compact('hora','date','user_nombre','user_id','depto','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
     public function search( Request $request)
@@ -88,43 +95,51 @@ class PortaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request , Porta $portas)
+    public function store(Request $request)
     {
+
+        $datosporta=request()->except('_token');
+
+        if($request->hasFile('confronta')){
+            $datosporta['confronta']=$request->file('confronta')->store('uploads','public');
+        }
 
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
 
-        $portas = new Porta();
-        $portas->numero          = $request ->numero;
-        $portas->documento       = $request ->documento;
-        $portas->nombres         = $request ->nombres;
-        $portas->apellidos       = $request ->apellidos;
-        $portas->correo          = $request ->correo;
-        $portas->departamento    = $request ->departamento;
-        $portas->ciudad          = $request ->id_ciudad;
-        $portas->barrio          = $request ->barrio;
-        $portas->direccion       = $request ->direccion;
-        $portas->nip             = $request ->nip;
-        $portas->tipocliente     = $request ->tipocliente;
-        $portas->planadquiere    = $request ->planadquiere;
-        $portas->ncontacto       = $request ->ncontacto;
-        $portas->imei            = $request ->imei;
-        $portas->fvc             = $request ->fvc;
-        $portas->fentrega        = $request ->fentrega;
-        $portas->fexpedicion     = $request ->fexpedicion;
-        $portas->fnacimiento     = $request ->fnacimiento;
-        $portas->origen          = $request ->origen;
-        $portas->ngrabacion      = $request ->ngrabacion;
-        $portas->orden           = $request ->orden;
-        $portas->observaciones   = $request ->observaciones;
-        $portas->agente          = $user_id;
-        $portas->revisados       = $request ->revisados;
-        $portas->estadorevisado  = $request ->estadorevisado;
-        $portas->obs2            = $request ->obs2;
-        $portas->backoffice      = $user_id;
-        $portas->save();
+        // $portas = new Porta();
+        // $portas->numero          = $request ->numero;
+        // $portas->documento       = $request ->documento;
+        // $portas->nombres         = $request ->nombres;
+        // $portas->apellidos       = $request ->apellidos;
+        // $portas->correo          = $request ->correo;
+        // $portas->departamento    = $request ->departamento;
+        // $portas->ciudad          = $request ->id_ciudad;
+        // $portas->barrio          = $request ->barrio;
+        // $portas->direccion       = $request ->direccion;
+        // $portas->nip             = $request ->nip;
+        // $portas->tipocliente     = $request ->tipocliente;
+        // $portas->planadquiere    = $request ->planadquiere;
+        // $portas->ncontacto       = $request ->ncontacto;
+        // $portas->imei            = $request ->imei;
+        // $portas->fvc             = $request ->fvc;
+        // $portas->fentrega        = $request ->fentrega;
+        // $portas->fexpedicion     = $request ->fexpedicion;
+        // $portas->fnacimiento     = $request ->fnacimiento;
+        // $portas->confronta       = $request ->confronta;
+        // $portas->origen          = $request ->origen;
+        // $portas->ngrabacion      = $request ->ngrabacion;
+        // $portas->orden           = $request ->orden;
+        // $portas->observaciones   = $request ->observaciones;
+        // $portas->agente          = $user_id;
+        // $portas->revisados       = $request ->revisados;
+        // $portas->estadorevisado  = $request ->estadorevisado;
+        // $portas->obs2            = $request ->obs2;
+        // $portas->backoffice      = $user_id;
+        // $portas->save();
 
-
+        Porta::insert($datosporta);
+        //return response()->json($datosporta);
         return back();
     }
 
@@ -157,6 +172,12 @@ class PortaController extends Controller
     public function edit($id)
 
     {
+
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $portas = Porta::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -166,7 +187,7 @@ class PortaController extends Controller
         $usuarios = User::all();
         $this->authorize('haveaccess','porta.edit');
         $portas=Porta::findOrFail($id);
-        return view('porta.edit',compact('portas','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('porta.edit',compact('user_id','user_nombre','date','hora','portas','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
     /**
@@ -179,6 +200,9 @@ class PortaController extends Controller
     public function update(Request $request, $id)
     {
 
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
         $usuarios = User::all();
         $user_id = Auth::user()->id;
         $user_nombre = Auth::user()->name;
@@ -186,7 +210,7 @@ class PortaController extends Controller
         $datosPorta=request()->except(['_token','_method']);
         Porta::where('id','=',$id)->update($datosPorta);
         $portas=Porta::findOrFail($id);
-        return view('porta.edit',compact('portas','revisadoses', 'usuarios'));
+        return view('porta.edit',compact('date','hora','portas','revisadoses', 'usuarios'));
     }
 
     /**
@@ -213,7 +237,7 @@ class PortaController extends Controller
 
 {
 
-    $portas = Porta::all();
+        $portas = Porta::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
         $planadquiere = Planadquiere::all();

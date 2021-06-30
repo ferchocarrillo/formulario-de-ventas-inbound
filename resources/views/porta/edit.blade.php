@@ -19,6 +19,7 @@
 <form name="f1" action="{{ url('/porta/'.$portas->id)}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
     @csrf
     @method('PATCH')
+    <input type="hidden" id="backoffice" name="backoffice" value="{{ $user_id}}">
 
    <div class="form-row">
    <div class="form-group col-md-6">
@@ -81,13 +82,13 @@
   </div>
 
   <div class="form-group col-md-6">
-    <label for="ciudad">Ciudad</label>
+    <label for="id_ciudad">Ciudad</label>
        <input type="text"
        class="form-control-new"
-       id="ciudad"
-       placeholder="ciudad"
-       name="Ciudad"
-       value="{{ old('ciudad' , $portas->ciudad)}}">
+       id="id_ciudad"
+       placeholder="Ciudad"
+       name="id_ciudad"
+       value="{{ old('id_ciudad' , $portas->id_ciudad)}}">
   </div>
   <div class="form-group col-md-6">
     <label for="barrio">Barrio</label>
@@ -225,7 +226,7 @@
     placeholder="Observaciones"
     value="{{ old('observaciones' , $portas->observaciones)}}">
    </div>
-   <div class="form-group col-md-6">
+   <div class="form-group col-md-4">
    <label for="revisados">Revision</label>
 
     <select name="revisados" id="revisados" class="form-control-new"  required>
@@ -236,11 +237,16 @@
  </select>
    </div>
 
-   <div class="form-group col-md-6">
+   <div class="form-group col-md-4">
     <label for="estadorevisados">Estado de la revision</label>
     <select name="estadorevisado" id="estadorevisado" class="form-control-new" placeholder="Estado de la revisión" required></select>
 </div>
+<div class="form-group col-md-4">
+    <span><label for="confronta">Confronta</label><br>
 
+    <a href="{{ asset('storage').'/'.$portas->confronta}}"><img src="{{ asset('storage').'/'.$portas->confronta}}" alt="" height="130" width="300"></a>
+</span>
+</div>
    {{--<div class="form-group col-md-12">
     <label for="revisados">Revision</label>
     <select name=revisados onchange="cambia_estadorevisado()" class="form-control-new">
@@ -262,6 +268,9 @@
 <div class="form-group col-md-12">
     <textarea class="form-control-new"  id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
     </div>
+
+
+
 
 
 

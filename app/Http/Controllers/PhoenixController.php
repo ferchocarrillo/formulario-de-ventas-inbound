@@ -47,6 +47,7 @@ class PhoenixController extends Controller
         $planadquiere = Planadquiere::all();
         $origen = Origen::all();
         $usuarios = User::all();
+        $phoenixes = phoenix::all();
 
         $phoenixes = phoenix::orderBy('revisados', 'asc')->paginate(10);
         return view('phoenix.index',compact('phoenixes','depto','tipoCliente','origen','planadquiere', 'usuarios'));
@@ -124,7 +125,7 @@ class PhoenixController extends Controller
         $phoenixes = phoenix::all();
         $searchphoenix = $request->get('searchphoenix');
         $phoenixes= phoenix::firstOrNew()->where('numero', 'like', '%'.$searchphoenix.'%')->paginate(5);
-        return view('phoenix.index', ['phoenix' => $phoenixes]);
+        return view('phoenix.index', ['phoenixes' => $phoenixes]);
     }
     /**
      * Display the specified resource.
