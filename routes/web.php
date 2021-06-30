@@ -81,7 +81,7 @@ use Illuminate\Support\Facades\Gate;
     Route::get('portadigital-list-excel', 'PortaDigitalController@exportExcel')->name('portadigital.excel');
     Route::get('lineanueva-list-excel', 'LineaNuevaController@exportExcel')->name('lineanueva.excel');
     Route::get('phoenix-list-excel', 'PhoenixController@exportExcel')->name('phoenix.excel');
-
+    Route::get('rechazos-list-excel', 'RechazosController@exportExcel')->name('rechazos.excel');
 
 
     Route::get('/search','PortaController@search');

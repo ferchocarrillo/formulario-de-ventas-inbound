@@ -22,6 +22,11 @@ card{
             </center>
                     <form action="{{ url('/rechazos')}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                         {{csrf_field()}}
+                        <input type="hidden" id="agente" name="agente" value="{{ $user_id}}">
+                        <input type="hidden" id ="dia" name="dia" class="form-control" placeholder="hora" value="{{ $date }}" required>
+                        <input type="hidden" id ="hora" name="hora" class="form-control" placeholder="hora" value="{{ $hora }}" required>
+
+
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <input type="number" id ="numero_de_celular" name="numero_de_celular" class="form-control" placeholder="Numero de celular" required>
@@ -65,17 +70,24 @@ card{
                            <div class="form-group col-md-4">
                                  <select name="id_ciudad" id="id_ciudad" class="form-control" placeholder="Ciudad o municipio" required></select>
                              </div>
+
 <div class="form-group col-md-6">
+
 <div class="card" style="background: white; border-radius: 0.75rem">
     <label for="competencia">Comnpetencia</label>
     <div class="row">
+
+
 
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class="form-check">
             <input class="form-check-input" type="checkbox" value="claro" name="claro" id="claro">
             <label class="form-check-label" for="claro">
               Claro
             </label>
-          </div>&nbsp;&nbsp;&nbsp;
+
+          </div>
+
+          &nbsp;&nbsp;&nbsp;
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="tigo" name="tigo" id="tigo">
             <label class="form-check-label" for="tigo">
@@ -125,19 +137,25 @@ card{
                             OUTBOUND
                         </label>
                       </div>
+
+
                 </div></div></div></div>
+
+
                 <div  class="row">
                         <div class="col-sm-3 col-form-label">
-                            <label for="frechazo">Fecha de rechazo</label>
-                            </div>
-                            <div class="form-group col-md-3">
+                            <label for="frechazo">Fecha de Rechazo</label>
                             <input type="date" id ="frechazo" name="frechazo" class="form-control" placeholder="Fecha del rechazo"required>
                           </div>
-
-                            <div class="form-group col-md-6">
+                          <div class="col-sm-4 col-form-label">
+                            <label for="imgrechazo">Pantallazo Rechazo</label>
+                            <input type="file" id ="imgrechazo" name="imgrechazo" class="form-control" placeholder="confronta" required>
+                            </div>
+                            <div class="form-group col-md-5">
                                 <textarea  id ="observacion" name="observacion" class="form-control" rows="3" placeholder="Observaciones" style="background: white"></textarea>
                             </div>
-                        </form>
+                            </div>
+
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary btn-sm">
                                  <i class="fa fa-dot-circle-o"></i> Enviar

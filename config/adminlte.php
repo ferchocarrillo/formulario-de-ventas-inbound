@@ -259,7 +259,7 @@ return [
 
         ],
         [
-            'text' => 'Formularios',
+            'text' => 'Inbound',
             'icon' => 'fab fa-wpforms',
             'submenu' => [
 
@@ -288,41 +288,78 @@ return [
     'icon'    => 'fas fa-frown',
     'icon_color' => 'cyan'
 ],
-    ['text'    => 'Portabilidad Digital',
-    'url'     => 'portadigital\create',
-    'icon'    => 'fas fa-calculator',
-    'icon_color' => 'green'
+
+],
+],
+[
+    'text' => 'Digital',
+    'icon' => 'fab fa-wpforms',
+    'submenu' => [
+
+['text'    => 'Portabilidad Digital',
+'url'     => 'portadigital\create',
+'icon'    => 'fas fa-calculator',
+'icon_color' => 'green'
 ],
 
 [   'text'    => 'Upgrade Digital',
-    'url'     => 'upgradedigital\create',
-    'icon'    => 'fas fa-sort-amount-up',
-    'icon_color' => 'orange'
+'url'     => 'upgradedigital\create',
+'icon'    => 'fas fa-sort-amount-up',
+'icon_color' => 'orange'
 ],
 
 [   'text'    => 'Prepost Digital',
-    'url'     => 'prepostdigital\create',
-    'icon'    => 'fas fa-tachometer-alt',
-    'icon_color' => 'fuchsia'
+'url'     => 'prepostdigital\create',
+'icon'    => 'fas fa-tachometer-alt',
+'icon_color' => 'fuchsia'
 ],
 
 [   'text'    => 'Fija Digital',
-    'url'     => 'fijadigital\create',
-    'icon'    => 'fab fa-accusoft',
-    'icon_color' => 'lime'
+'url'     => 'fijadigital\create',
+'icon'    => 'fab fa-accusoft',
+'icon_color' => 'lime'
 ],
 
 [   'text'    => 'Linea Nueva',
-    'url'     => 'lineanueva\create',
-    'icon'    => 'fab fa-android',
-    'icon_color' => 'pink'
+'url'     => 'lineanueva\create',
+'icon'    => 'fab fa-android',
+'icon_color' => 'pink'
 ],
 [   'text'    => 'Phoenix',
-    'url'     => 'phoenix\create',
-    'icon'    => 'fab fa-airbnb',
-    'icon_color' => 'white'
+'url'     => 'phoenix\create',
+'icon'    => 'fab fa-airbnb',
+'icon_color' => 'white'
 ],
 
+],
+],
+[
+    'text' => 'Televentas',
+    'icon' => 'fab fa-wpforms',
+
+    'submenu' => [
+
+['text'    => 'Portabilidad',
+'url'     => '#',
+'icon'    => 'fas fa-calculator',
+'icon_color' => 'green',
+'can'  => 'portabilidad'
+],
+
+[   'text'    => 'Upgrade',
+'url'     => '#',
+'icon'    => 'fas fa-sort-amount-up',
+'icon_color' => 'orange',
+'can'  => 'upgrade'
+],
+
+[   'text'    => 'Prepost',
+'url'     => '#',
+'icon'    => 'fas fa-tachometer-alt',
+'icon_color' => 'fuchsia',
+'can'  => 'prepost'
+],
+'can'  => 'televentas'
 ],
 ],
 [
@@ -381,6 +418,11 @@ return [
     'url'     => 'phoenix',
     'icon'    => 'fab fa-airbnb',
     'icon_color' => 'white'
+],
+[   'text'    => 'Rechazos',
+    'url'     => 'rechazos',
+    'icon'    => 'fas fa-frown',
+    'icon_color' => 'cyan'
 ],
 
 

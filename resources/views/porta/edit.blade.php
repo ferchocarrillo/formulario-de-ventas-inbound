@@ -230,7 +230,7 @@
    <label for="revisados">Revision</label>
 
     <select name="revisados" id="revisados" class="form-control-new"  required>
-       <option value="">Revisión</option>
+       <option value=""></option>
        @foreach($revisadoses as $revisados)
            <option value="{{ $revisados->estado}}">{{ $revisados->estado }}</option>
        @endforeach

@@ -26,10 +26,10 @@
         <th scope="col">Documento</th>
         <th scope="col">Correo</th>
         <th scope="col">Producto</th>
-
         <th scope="col">Revision</th>
         <th scope="col">Causales</th>
         <th scope="col">Agente</th>
+
 
         <th colspan="3">Acciones</th>
         </tr>
@@ -43,7 +43,6 @@
         <td>{{$fija->documento}}</td>
         <td>{{$fija->correo}}</td>
         <td>{{$fija->producto}}</td>
-
         <td>{{$fija->revisados}}</td>
         <td>{{$fija->estadorevisado}}</td>
         <td>{{$fija->agente}}</td>

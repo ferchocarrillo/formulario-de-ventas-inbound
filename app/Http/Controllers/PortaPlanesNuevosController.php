@@ -21,7 +21,7 @@ class PortaPlanesNuevosController extends Controller
 
     {
 
-        $portaPLNs =  Planadquiere::orderBy('id','ASC')->paginate(15);
+        $portaPLNs =  Planadquiere::orderBy('Id_adquisicion','ASC')->paginate(15);
 
         return view('portaplnew.index',compact('portaPLNs'));
     }

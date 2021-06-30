@@ -15,6 +15,8 @@ use App\Causales;
 use App\Linea;
 use App\User;
 use stdClass;
+use Carbon\Carbon;
+
 
 class RechazosController extends Controller
 {
@@ -36,14 +38,17 @@ class RechazosController extends Controller
      */
     public function create()
     {
-
-
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $causales = Causales::all();
         $linea = Linea::all();
         $usuarios = User::all();
         $depto = Departamentos::all();
-        $user_id  = Auth::user()->id;
-        return view('rechazos/create',compact('causales','linea','depto'));
+
+        return view('rechazos/create',compact('user_nombre','user_id','hora','date','causales','linea','depto'));
     }
 
     /**
@@ -54,33 +59,43 @@ class RechazosController extends Controller
      */
     public function store(Request $request)
     {
-        $date1 = $request->input('claro');
-        $date2 = $request->input('tigo');
-        $date3 = $request->input('directv');
-        $date4 = $request->input('wow');
-        $date5 = $request->input('barrio');
-        $date6 = $request->input('otros');
-
-
-
-
-
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
-        $rechazos = new Rechazos();
-        $rechazos->numero_de_celular             = $request ->numero_de_celular;
-        $rechazos->nombres                       = $request ->nombres;
-        $rechazos->documento                     = $request ->documento;
-        $rechazos->causal                        = $request ->causal;
-        $rechazos->linea                         = $request ->linea;
-        $rechazos->departamento                  = $request ->departamento;
-        $rechazos->ciudad                        = $request ->id_ciudad;
-        $rechazos->competencia                   = $date1." " .$date2." " .$date3." " .$date4." " .$date5." " .$date6;
-        $rechazos->modalidad                     = $request ->modalidad;
-        $rechazos->frechazo                      = $request ->frechazo;
-        $rechazos->observacion                   = $request ->observacion;
-        $rechazos->agente                        = $user_id.','.$user_nombre;
-        $rechazos->save();
+
+        $datosrechazos=request()->except('_token');
+
+        if($request->hasFile('imgrechazo')){
+            $datosrechazos['imgrechazo']=$request->file('imgrechazo')->store('uploads','public');
+        }
+        // $date1 = $request->input('claro');
+        // $date2 = $request->input('tigo');
+        // $date3 = $request->input('directv');
+        // $date4 = $request->input('wow');
+        // $date5 = $request->input('barrio');
+        // $date6 = $request->input('otros');
+    //     $user_id = Auth::user()->cedula;
+    //     $user_nombre = Auth::user()->name;
+    //     $rechazos = new Rechazos();
+    //     $rechazos->numero_de_celular             = $request ->numero_de_celular;
+    //     $rechazos->nombres                       = $request ->nombres;
+    //     $rechazos->documento                     = $request ->documento;
+    //     $rechazos->causal                        = $request ->causal;
+    //     $rechazos->linea                         = $request ->linea;
+    //     $rechazos->departamento                  = $request ->departamento;
+    //     $rechazos->ciudad                        = $request ->id_ciudad;
+    //     $rechazos->competencia                   = $date1." " .$date2." " .$date3." " .$date4." " .$date5." " .$date6;
+    //     $rechazos->modalidad                     = $request ->modalidad;
+    //     $rechazos->frechazo                      = $request ->frechazo;
+    //     $rechazos->observacion                   = $request ->observacion;
+    //     $rechazos->agente                        = $user_id.','.$user_nombre;
+    //     $rechazos->hora    	                 = $request ->hora;
+	// $rechazos->dia    		         = $request ->dia;
+    //     $rechazos->save();
+
+    Rechazos::insert($datosrechazos);
         return back() ;
     }
 
@@ -90,9 +105,9 @@ class RechazosController extends Controller
      * @param  \App\Rechazos  $rechazos
      * @return \Illuminate\Http\Response
      */
-    public function show(Rechazos $rechazos)
+    public function show()
     {
-        //
+
     }
 
     /**
@@ -101,9 +116,12 @@ class RechazosController extends Controller
      * @param  \App\Rechazos  $rechazos
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rechazos $rechazos)
+    public function edit($id)
     {
-        //
+
+        $this->authorize('haveaccess','rechazos.edit');
+        $rechazos=Rechazos::findOrFail($id);
+        return view('rechazos.edit',compact('rechazos'));
     }
 
     /**

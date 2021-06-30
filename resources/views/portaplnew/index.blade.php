@@ -39,7 +39,7 @@
 <tbody>
             @foreach ($portaPLNs as $portaPLN)
         <tr>
-            <td style="font-size: 22px">{{$portaPLN->id}}</td>
+            <td style="font-size: 22px">{{$portaPLN->Id_adquisicion}}</td>
             <td>{{$portaPLN->xxxxx}}</td>
 
 
@@ -55,7 +55,7 @@
         <td>
 
 
-<form method="POST" action="{{url('/portaplnew/'.$portaPLN->id) }}">
+<form method="POST" action="{{url('/portaplnew/'.$portaPLN->Id_adquisicion) }}">
 {{ csrf_field() }}
 @method('DELETE')
 <button type="submit" onclick="return confirm ('¡estas a punto de borrar un plan de la base!, este proceso no tiene reversa');" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> Borrar</button>

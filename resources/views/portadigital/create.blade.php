@@ -12,6 +12,10 @@
             </center>
                 <form action="{{ url('/portadigital')}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                 {{csrf_field()}}
+
+                <input type="hidden" id="agente" name="agente" value="{{ $user_id}}">
+                <input type="hidden" id ="dia" name="dia" class="form-control" placeholder="hora" value="{{ $date }}" required>
+                <input type="hidden" id ="hora" name="hora" class="form-control" placeholder="hora" value="{{ $hora }}" required>
                 <div class="form-row">
                 <div class="form-group col-md-6">
                 <input type="number" id ="numero" name="numero" class="form-control" placeholder="Numero Celular" required>
@@ -89,22 +93,26 @@
                   </div>
 
 
-                  <div class="col-sm-3 col-form-label">
+                  <div class="col-sm-2 col-form-label">
                     <label for="fvc">FVC</label>
                     <input type="date" id ="fvc" name="fvc" class="form-control" placeholder="FVC"required>
                   </div>
-                  <div class="col-sm-3 col-form-label">
+                  <div class="col-sm-2 col-form-label">
                     <label for="fentrega">Fecha Entrega</label>
                     <input type="date" id ="fentrega" name="fentrega" class="form-control" placeholder="Fecha de entrega"required>
                   </div>
-                  <div class="col-sm-3 col-form-label">
+                  <div class="col-sm-2 col-form-label">
                     <label for="fexpedicion">Fecha Expedición</label>
                     <input type="date" id ="fexpedicion" name="fexpedicion" class="form-control" placeholder="Fecha de expedición"required>
                   </div>
-                  <div class="col-sm-3 col-form-label">
+                  <div class="col-sm-2 col-form-label">
                     <label for="fnacimiento">Fecha Nacimiento</label>
                     <input type="date" id ="fnacimiento" name="fnacimiento" class="form-control" placeholder="Fecha de Nacimiento"required>
                   </div>
+                  <div class="col-sm-4 col-form-label">
+                    <label for="confronta">Confronta</label>
+                    <input type="file" id ="confronta" name="confronta" class="form-control" placeholder="confronta" required>
+                    </div>
                   <div class="form-group col-md-4">
                   <select name="origen" id="origen" class="form-control"  required>
                         <option value="0">Origen de la migracion</option>

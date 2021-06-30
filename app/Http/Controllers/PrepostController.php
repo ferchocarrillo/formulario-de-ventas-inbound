@@ -26,6 +26,7 @@ use App\Revisiones;
 use App\Corte;
 use App\User;
 use stdClass;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PrepostExport;
 
@@ -61,6 +62,11 @@ class PrepostController extends Controller
      */
     public function create()
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $depto = Departamentos::all();
         $corte = Corte::all();
         $estrato = Estrato::all();
@@ -73,7 +79,7 @@ class PrepostController extends Controller
         $plan = Planes_prepost::all();
         $usuarios = User::all();
         $user_id = Auth::user()->id;
-        return view('prepost.create',compact('depto','plan','activacion','estrato','velocidad','tipocliente','tecnologia','producto', 'corte','adicionales','usuarios'));
+        return view('prepost.create',compact('hora','date','user_nombre','user_id','depto','plan','activacion','estrato','velocidad','tipocliente','tecnologia','producto', 'corte','adicionales','usuarios'));
 
     }
 
@@ -94,32 +100,47 @@ class PrepostController extends Controller
      */
     public function store(Request $request)
     {
+
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
-        $prepost = new Prepost();
-        $prepost->numero             = $request ->numero;
-        $prepost->nombres              = $request ->nombres;
-        $prepost->documento            = $request ->documento;
-        $prepost->fexpedicion          = $request ->fexpedicion;
-        $prepost->tipocliente          = $request ->tipocliente;
-        $prepost->correo               = $request ->correo;
-        $prepost->departamento         = $request ->departamento;
-        $prepost->ciudad               = $request ->id_ciudad;
-        $prepost->barrio               = $request ->barrio;
-        $prepost->direccion            = $request ->direccion;
-        $prepost->corte                = $request ->corte;
-        $prepost->planventa            = $request ->plan;
-        $prepost->activacion           = $request ->activacion;
-        $prepost->token                = $request ->token;
-        $prepost->orden                = $request ->orden;
-        $prepost->observaciones        = $request ->observaciones;
-        $prepost->agente               = $user_id;
-        $prepost->revisados            = $request ->revisados;
-        $prepost->estadorevisado       = $request ->estadorevisado;
-        $prepost->obs2                 = $request ->obs2;
-        $prepost->backoffice           = $user_id;
 
-        $prepost->save();
+        $datosprepost=request()->except('_token');
+
+        if($request->hasFile('confronta')){
+            $datosprepost['confronta']=$request->file('confronta')->store('uploads','public');
+        }
+
+
+
+
+
+        // $user_id = Auth::user()->cedula;
+        // $user_nombre = Auth::user()->name;
+        // $prepost = new Prepost();
+        // $prepost->numero             = $request ->numero;
+        // $prepost->nombres              = $request ->nombres;
+        // $prepost->documento            = $request ->documento;
+        // $prepost->fexpedicion          = $request ->fexpedicion;
+        // $prepost->tipocliente          = $request ->tipocliente;
+        // $prepost->correo               = $request ->correo;
+        // $prepost->departamento         = $request ->departamento;
+        // $prepost->ciudad               = $request ->id_ciudad;
+        // $prepost->barrio               = $request ->barrio;
+        // $prepost->direccion            = $request ->direccion;
+        // $prepost->corte                = $request ->corte;
+        // $prepost->planventa            = $request ->plan;
+        // $prepost->activacion           = $request ->activacion;
+        // $prepost->token                = $request ->token;
+        // $prepost->orden                = $request ->orden;
+        // $prepost->observaciones        = $request ->observaciones;
+        // $prepost->agente               = $user_id;
+        // $prepost->revisados            = $request ->revisados;
+        // $prepost->estadorevisado       = $request ->estadorevisado;
+        // $prepost->obs2                 = $request ->obs2;
+        // $prepost->backoffice           = $user_id;
+
+        // $prepost->save();
+        Prepost::insert($datosprepost);
         return back() ;
 
 
@@ -156,6 +177,11 @@ class PrepostController extends Controller
 
     {
 
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $prepost = Prepost::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -170,7 +196,7 @@ class PrepostController extends Controller
 
 
        $prepost=Prepost::findOrFail($id);
-        return view('prepost.edit',compact('prepost','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('prepost.edit',compact('user_id','user_nombre','date','hora','prepost','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
 
     }
     /**
@@ -183,14 +209,17 @@ class PrepostController extends Controller
     public function update(Request $request, $id)
     {
 
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
         $usuarios = User::all();
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
         $revisadoses = Revisados::all();
         $datosPrepost=request()->except(['_token','_method']);
         Prepost::where('id','=',$id)->update($datosPrepost);
         $prepost=Prepost::findOrFail($id);
-        return view('prepost.edit',compact('prepost', 'usuarios','revisadoses'));
+        return view('prepost.edit',compact('user_id','date','hora','prepost', 'usuarios','revisadoses'));
     }
 
     /**
