@@ -11,7 +11,7 @@
             </body>
             <center style="background-image: linear-gradient(#EAF2F8, #AAB7B8);">
                 <img src="\theme\images\pngegg.png" float="left" height="120" width="300">
-                <h3 aline="center">Editar Gestion  LInea nueva</h3>
+                <h3 aline="center">Editar Gestion  Linea Nueva</h3>
             </center>
 
 
@@ -19,11 +19,11 @@
 <form name="f1" action="{{ url('/lineanueva/'.$lineanuevas->id)}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
     @csrf
     @method('PATCH')
-
+    <input type="hidden" id="backoffice" name="backoffice" value="{{ $user_id}}">
    <div class="form-row">
    <div class="form-group col-md-6">
         <label for="number">Numero</label>
-        <input type="number" class="form-control"
+        <input type="number" class="form-control-new"
         id="numero"
         placeholder="Numero"
         name="numero"
@@ -33,7 +33,7 @@
   <div class="form-group col-md-6">
     <label for="documento">Documento</label>
        <input type="number"
-       class="form-control"
+       class="form-control-new"
        id="documento"
        placeholder="Documento"
        name="documento"
@@ -43,7 +43,7 @@
   <div class="form-group col-md-6">
     <label for="nombres">Nombres</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="nombres"
        placeholder="Nombres"
        name="nombres"
@@ -53,7 +53,7 @@
   <div class="form-group col-md-6">
     <label for="apellidos">Apellidos</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="apellidos"
        placeholder="Apellidos"
        name="apellidos"
@@ -63,7 +63,7 @@
   <div class="form-group col-md-6">
     <label for="correo">Correo</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="correo"
        placeholder="Correo"
        name="correo"
@@ -73,7 +73,7 @@
   <div class="form-group col-md-6">
     <label for="selector">Selector</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="selector"
        placeholder="Selector"
        name="selector"
@@ -83,7 +83,7 @@
   <div class="form-group col-md-6">
     <label for="departamento">Departamento</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="departamento"
        placeholder="Departamento"
        name="departamento"
@@ -91,18 +91,18 @@
   </div>
 
   <div class="form-group col-md-6">
-    <label for="ciudad">Ciudad</label>
+    <label for="id_ciudad">Ciudad</label>
        <input type="text"
-       class="form-control"
-       id="ciudad"
+       class="form-control-new"
+       id="id_ciudad"
        placeholder="ciudad"
-       name="Ciudad"
-       value="{{ old('ciudad' , $lineanuevas->ciudad)}}">
+       name="id_ciudad"
+       value="{{ old('id_ciudad' , $lineanuevas->id_ciudad)}}">
   </div>
   <div class="form-group col-md-6">
     <label for="barrio">Barrio</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="barrio"
        placeholder="barrio"
        name="Barrio"
@@ -111,106 +111,37 @@
   <div class="form-group col-md-6">
     <label for="direccion">Direccion</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="direccion"
        placeholder="direccion"
        name="Direccion"
        value="{{ old('direccion' , $lineanuevas->direccion)}}">
   </div>
-  {{--  <div class="form-group col-md-6">
-    <label for="nip">Nip</label>
-       <input type="number"
-       class="form-control"
-       id="nip"
-       placeholder="Nip"
-       name="nip"
-       value="{{ old('nip' , $portadigitals->nip)}}">
-  </div>  --}}
+
   <div class="form-group col-md-3">
     <label for="tipocliente">Tipo cliente</label>
        <input type="text"
-       class="form-control"
+       class="form-control-new"
        id="tipocliente"
        placeholder="tipo cliente"
        name="tipocliente"
        value="{{ old('tipocliente' , $lineanuevas->tipocliente)}}">
   </div>
-  {{--  <div class="form-group col-md-6">
-    <label for="planadquiere">Plan adquiere</label>
-       <input type="number"
-       class="form-control"
-       id="planadquiere"
-       placeholder="plan adquiere"
-       name="planadquiere"
-       value="{{ old('planadquiere' , $lineanuevas->planadquiere)}}">
-  </div>  --}}
+
   <div class="form-group col-md-3">
     <label for="ncontacto">Numero de contacto</label>
        <input type="number"
-       class="form-control"
+       class="form-control-new"
        id="ncontacto"
        placeholder="numero de contacto"
        name="ncontacto"
        value="{{ old('ncontacto' , $lineanuevas->ncontacto)}}">
   </div>
-  {{--  <div class="form-group col-md-6">
-    <label for="imei">Imei</label>
-       <input type="number"
-       class="form-control"
-       id="imei"
-       placeholder="Imei"
-       name="imei"
-       value="{{ old('imei' , $lineanuevas->imei)}}">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="fvc">FVC</label>
-       <input type="date"
-       class="form-control"
-       id="fvc"
-       placeholder="fvc"
-       name="fvc"
-       value="{{ old('fvc' , $lineanuevas->fvc)}}">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="fentrega">Fecha de entrega</label>
-       <input type="date"
-       class="form-control"
-       id="fentrega"
-       placeholder="Fecha de entrega"
-       name="fentrega"
-       value="{{ old('fentrega' , $lineanuevas->fentrega)}}">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="fexpedicion">Fecha de expedicion</label>
-       <input type="date"
-       class="form-control"
-       id="fexpedicion"
-       placeholder="Fecha de expedicion"
-       name="fexpedicion"
-       value="{{ old('fexpedicion' , $lineanuevas->fexpedicion)}}">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="fnacimiento">Fecha de nacimiento</label>
-       <input type="date"
-       class="form-control"
-       id="fnacimiento"
-       placeholder="Fecha de nacimiento"
-       name="fnacimiento"
-       value="{{ old('fnacimiento' , $lineanuevas->fnacimiento)}}">
-  </div>
-  <div class="form-group col-md-6">
-    <label for="origen">Origen de la migracion</label>
-       <input type="text"
-       class="form-control"
-       id="origen"
-       placeholder="Origen"
-       name="origen"
-       value="{{ old('origen' , $lineanuevas->origen)}}">
-  </div>  --}}
+
   <div class="form-group col-md-3">
     <label for="ngrabacion">Numero de grabacion</label>
        <input type="number"
-       class="form-control"
+       class="form-control-new"
        id="ngrabacion"
        placeholder="Numero de grabacion"
        name="ngrabacion"
@@ -220,7 +151,7 @@
   <div class="form-group col-md-3">
     <label for="orden">Numero de Orden</label>
        <input type="number"
-       class="form-control"
+       class="form-control-new"
        id="orden"
        placeholder="Numero de Orden"
        name="orden"
@@ -229,30 +160,37 @@
   <div class="form-group col-md-12">
     <label for="ngrabacion">Observaciones</label>
     <input type="text"
-    class="form-control"
+    class="form-control-new"
     id ="observaciones"
     name="observaciones"
     placeholder="Observaciones"
     value="{{ old('observaciones' , $lineanuevas->observaciones)}}">
    </div>
 
-   <div class="form-group col-md-6">
+   <div class="form-group col-md-4">
     <label for="revisados">Revision</label>
 
-     <select name="revisados" id="revisados" class="form-control"  required>
-        <option value="">Revisión</option>
+     <select name="revisados" id="revisados" class="form-control-new"  required>
+        <option value="">Selecciona una</option>
         @foreach($revisadoses as $revisados)
             <option value="{{ $revisados->estado}}">{{ $revisados->estado }}</option>
         @endforeach
   </select>
     </div>
 
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
      <label for="estadorevisados">Estado de la revision</label>
-     <select name="estadorevisado" id="estadorevisado" class="form-control" placeholder="Estado de la revisión" required></select>
+     <select name="estadorevisado" id="estadorevisado" class="form-control-new" placeholder="Estado de la revisión" required></select>
  </div>
+
+ <div class="form-group col-md-4">
+    <span><label for="confronta">Confronta</label><br>
+
+    <a href="{{ asset('storage').'/'.$lineanuevas->confronta}}"><img src="{{ asset('storage').'/'.$lineanuevas->confronta}}" alt="" height="130" width="300"></a>
+</span>
+</div>
 <div class="form-group col-md-12">
-    <textarea class="form-control"  id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
+    <textarea class="form-control-new" id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
     </div>
 
 
@@ -265,61 +203,6 @@
 </div>
 
 </form>
-
-
-
-
-
-
-
-
-
-
-{{--
-  <script>
-  var estadorevisados_1=new Array("Ok");
-  var estadorevisados_2=new Array("Escoja una opcion","Cliente en mora","Error Aplicativo","Recahzo PCO","Cliente no Paso Confronta","Pendiente Ingreso");
-  var estadorevisados_3=new Array("Escoja una opcion","Rechazo PCO","Cliente Tiene una Solicitud Abierta");
-
-
-  var todasestadorevisados = [
-    [],
-    estadorevisados_1,
-    estadorevisados_2,
-    estadorevisados_3,
-
-  ];
-
-  function cambia_estadorevisado(){
-   	//tomo el valor del select del revisados elegido
-   	var revisados
-   	revisados = document.f1.revisados[document.f1.revisados.selectedIndex].value
-   	//miro a ver si el revisados está definido
-   	if (revisados != 0) {
-      	//si estaba definido, entonces coloco las opciones de la estadorevisado correspondiente.
-      	//selecciono el array de estadorevisado adecuado
-      	mis_estadorevisados=todasestadorevisados[revisados]
-      	//calculo el numero de estadorevisados
-      	num_estadorevisados = mis_estadorevisados.length
-      	//marco el número de estadorevisados en el select
-      	document.f1.estadorevisado.length = num_estadorevisados
-      	//para cada estadorevisado del array, la introduzco en el select
-      	for(i=0;i<num_estadorevisados;i++){
-         	document.f1.estadorevisado.options[i].value=mis_estadorevisados[i]
-         	document.f1.estadorevisado.options[i].text=mis_estadorevisados[i]
-      	}
-   	}else{
-      	//si no había estadorevisado seleccionada, elimino las estadorevisados del select
-      	document.f1.estadorevisado.length = 1
-      	//coloco un guión en la única opción que he dejado
-      	document.f1.estadorevisado.options[0].value = "-"
-      	document.f1.estadorevisado.options[0].text = "-"
-   	}
-   	//marco como seleccionada la opción primera de estadorevisado
-   	document.f1.estadorevisado.options[0].selected = true
-}
-</script>  --}}
-
 
 </div>
 
@@ -352,31 +235,7 @@ Swal.fire(
     <script src="{{asset('theme/vendor/bootstrap-4.1/popper.min.js')}}"></script>
     <script src="{{asset('theme/vendor/bootstrap-4.1/bootstrap.min.js')}}"></script>
     <!--<script src="{{asset('js/Portabilidad.js')}}"></script>-->
-{{--
-<script>
-   $(document).ready(function() {
-        $('#id_dep').on('change', function(e) {
-            var id = $('#id_dep').val();
-            $.ajax({
 
-                url: "{{ route('Ciudad')}}",
-                data: "id="+id+"&_token={{ csrf_token()}}",
-                dataType: "json",
-                method: "POST",
-                success: function(result)
-                {
-
-                    $('#id_ciudad').empty();
-                    $('#id_ciudad').append("<option value=''>Ingrese Ciudad o Municipio</option>");
-                    $.each(result, function(index,value){
-
-                        $('#id_ciudad').append("<option value='"+value.Id_ciudad+"'>"+value.Municipio+"</option>");
-                    });
-                }
-            });
-        });
-    });
-</script>  --}}
 <script>
     $(document).ready(function() {
          $('#revisados').on('change', function(e) {

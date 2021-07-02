@@ -1,6 +1,4 @@
-
 @extends('adminlte::page')
-
 @section('content')
 <link rel="stylesheet" href="{{asset('css/app.css')}}">
 

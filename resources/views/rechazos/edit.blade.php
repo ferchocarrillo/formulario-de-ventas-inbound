@@ -169,7 +169,7 @@
 
 
  <div class="form-group col-md-6">
-    <label for="imgrechazo">Imagen Rechazos</label>
+    <label for="imgrechazo">Imagen del Rechazo</label>
     <span>
         <a href="{{ asset('storage').'/'.$rechazos->imgrechazo}}"><img src="{{ asset('storage').'/'.$rechazos->imgrechazo}}" alt="" height="130" width="260"></a>
     </span>
@@ -250,8 +250,8 @@
 
       <script>
       Swal.fire(
-        'UPGRADE',
-        'Aqui podras editar los datos ya registrados',
+        'RECHAZOS',
+        'Registro de Rechazos',
         'success'
       )
       </script>

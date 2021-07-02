@@ -90,10 +90,11 @@ use Illuminate\Support\Facades\Gate;
     Route::get('/searchupgrade','UpgradeController@searchupgrade');
     Route::get('/searchportadigital','PortaDigitalController@searchportadigital');
     Route::get('/searchdigitalupgrade','UpgradeDigitalController@searchdigitalupgrade');
-    Route::get('/searchdigitalprepost','PrepostDigitalController@searchdigitalprepost');
+    Route::get('/searchprepostdigital','PrepostDigitalController@searchprepostdigital');
     Route::get('/searchdigitalfija','FijaDigitalController@searchdigitalfija');
     Route::get('/searchlineanueva','lineaNuevaController@searchlineanueva');
     Route::get('/searchphoenix','PhoenixController@searchphoenix');
+    Route::get('/searchrechazos','RechazosController@searchrechazos');
 
 
     Route::get('/searchusers','UserController@searchusers');

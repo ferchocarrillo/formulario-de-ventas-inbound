@@ -106,38 +106,6 @@ class PortaController extends Controller
 
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
-
-        // $portas = new Porta();
-        // $portas->numero          = $request ->numero;
-        // $portas->documento       = $request ->documento;
-        // $portas->nombres         = $request ->nombres;
-        // $portas->apellidos       = $request ->apellidos;
-        // $portas->correo          = $request ->correo;
-        // $portas->departamento    = $request ->departamento;
-        // $portas->ciudad          = $request ->id_ciudad;
-        // $portas->barrio          = $request ->barrio;
-        // $portas->direccion       = $request ->direccion;
-        // $portas->nip             = $request ->nip;
-        // $portas->tipocliente     = $request ->tipocliente;
-        // $portas->planadquiere    = $request ->planadquiere;
-        // $portas->ncontacto       = $request ->ncontacto;
-        // $portas->imei            = $request ->imei;
-        // $portas->fvc             = $request ->fvc;
-        // $portas->fentrega        = $request ->fentrega;
-        // $portas->fexpedicion     = $request ->fexpedicion;
-        // $portas->fnacimiento     = $request ->fnacimiento;
-        // $portas->confronta       = $request ->confronta;
-        // $portas->origen          = $request ->origen;
-        // $portas->ngrabacion      = $request ->ngrabacion;
-        // $portas->orden           = $request ->orden;
-        // $portas->observaciones   = $request ->observaciones;
-        // $portas->agente          = $user_id;
-        // $portas->revisados       = $request ->revisados;
-        // $portas->estadorevisado  = $request ->estadorevisado;
-        // $portas->obs2            = $request ->obs2;
-        // $portas->backoffice      = $user_id;
-        // $portas->save();
-
         Porta::insert($datosporta);
         //return response()->json($datosporta);
         return back();
@@ -210,7 +178,7 @@ class PortaController extends Controller
         $datosPorta=request()->except(['_token','_method']);
         Porta::where('id','=',$id)->update($datosPorta);
         $portas=Porta::findOrFail($id);
-        return view('porta.edit',compact('date','hora','portas','revisadoses', 'usuarios'));
+        return view('porta.edit',compact('user_id','user_nombre','date','portas','revisadoses', 'usuarios'));
     }
 
     /**

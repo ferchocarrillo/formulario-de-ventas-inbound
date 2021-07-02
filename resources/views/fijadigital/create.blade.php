@@ -14,6 +14,9 @@
             </center>
                 <form action="{{ url('/fijadigital')}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                     {{csrf_field()}}
+                    <input type="hidden" id="agente" name="agente" value="{{ $user_id}}">
+                    <input type="hidden" id ="dia" name="dia" class="form-control" placeholder="hora" value="{{ $date }}" required>
+                    <input type="hidden" id ="hora" name="hora" class="form-control" placeholder="hora" value="{{ $hora }}" required>
                     <div class="form-row">
                                <div class="form-group col-md-6">
                                <input type="text" id ="nombres" name="nombres" class="form-control" placeholder="Nombres" required>
@@ -139,28 +142,38 @@
                                       </div>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="col-sm-2 col-form-label">
+                                        <label for="velocidad">Velocidad</label>
                                         <select name="velocidad" id="velocidad" class="form-control" required>
-                                            <option value="0">Velocidad</option>
+                                            <option value="0">Selecciona</option>
                                             @foreach($velocidad as $velocidads)
                                                 <option value="{{ $velocidads->velocidad}}">{{ $velocidads->velocidad }}</option>
                                             @endforeach
                                         </select>
                                       </div>
-                                      <div class="form-group col-md-4">
+                                      <div class="col-sm-2 col-form-label">
+                                            <label for="tecnologia">Tecnologia</label>
                                         <select name="tecnologia" id="tecnologia" class="form-control" required>
-                                            <option value="0">Tecnologia</option>
+                                            <option value="0">Selecciona</option>
                                             @foreach($tecnologia as $tecnologias)
                                                 <option value="{{ $tecnologias->tecnologia}}">{{ $tecnologias->tecnologia }}</option>
                                             @endforeach
                                         </select>
                                       </div>
-                                      <div class="form-group col-md-4">
-                                        <input type="orden" id ="orden" name="orden" class="form-control" placeholder="Numero de Orden" required>
+                                        <div class="col-sm-2 col-form-label">
+                                            <label for="orden">Numero de Orden</label>
+                                        <input type="orden" id ="orden" name="orden" class="form-control"  required>
                                         </div>
+                                        <div class="col-sm-6 col-form-label">
+                                            <label for="confronta">Confronta</label>
+                                            <input type="file" id ="confronta" name="confronta" class="form-control"  required>
+                                            </div>
                                       <div class="form-group col-md-12">
                                         <textarea  id ="observacion" name="observacion" class="form-control" rows="3" placeholder="Observaciones" required></textarea>
+		                                <input type="hidden" id ="dia" name="dia" class="form-control" placeholder="hora" value="{{ $date }}" required>
+		                                <input type="hidden" id ="hora" name="hora" class="form-control" placeholder="hora" value="{{ $hora }}" required>
                                         </div>
+
 
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-primary btn-sm">

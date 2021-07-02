@@ -28,6 +28,7 @@ use App\User;
 use stdClass;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PrepostDigitalExport;
+use Carbon\Carbon;
 
 
 class PrepostDigitalController extends Controller
@@ -62,6 +63,11 @@ class PrepostDigitalController extends Controller
      */
     public function create()
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $depto = Departamentos::all();
         $corte = Corte::all();
         $estrato = Estrato::all();
@@ -74,16 +80,16 @@ class PrepostDigitalController extends Controller
         $plan = Planes_prepost::all();
         $usuarios = User::all();
         $user_id = Auth::user()->id;
-        return view('prepostdigital.create',compact('depto','plan','activacion','estrato','velocidad','tipocliente','tecnologia','producto', 'corte','adicionales','usuarios'));
+        return view('prepostdigital.create',compact('hora','date','user_nombre','user_id','depto','plan','activacion','estrato','velocidad','tipocliente','tecnologia','producto', 'corte','adicionales','usuarios'));
 
     }
 
-    public function searchprepost( Request $request)
+    public function searchprepostdigital( Request $request)
     {
         $preposts = prepostDigital::all();
 
-        $searchprepost = $request->get('searchprepost');
-        $preposts= prepostDigital::firstOrNew()->where('numero', 'like', '%'.$searchprepost.'%')->paginate(5);
+        $searchprepostdigital = $request->get('searchprepostdigital');
+        $preposts= prepostDigital::firstOrNew()->where('numero', 'like', '%'.$searchprepostdigital.'%')->paginate(5);
         return view('prepostdigital.index', ['preposts' => $preposts]);
     }
 
@@ -95,33 +101,45 @@ class PrepostDigitalController extends Controller
      */
     public function store(Request $request)
     {
+
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
-        $prepost = new prepostDigital();
-        $prepost->numero             = $request ->numero;
-        $prepost->nombres              = $request ->nombres;
-        $prepost->documento            = $request ->documento;
-        $prepost->fexpedicion          = $request ->fexpedicion;
-        $prepost->tipocliente          = $request ->tipocliente;
-        $prepost->correo               = $request ->correo;
-        $prepost->selector             = $request ->selector;
-        $prepost->departamento         = $request ->departamento;
-        $prepost->ciudad               = $request ->id_ciudad;
-        $prepost->barrio               = $request ->barrio;
-        $prepost->direccion            = $request ->direccion;
-        $prepost->corte                = $request ->corte;
-        $prepost->planventa            = $request ->plan;
-        $prepost->activacion           = $request ->activacion;
-        $prepost->token                = $request ->token;
-        $prepost->orden                = $request ->orden;
-        $prepost->observaciones        = $request ->observaciones;
-        $prepost->agente               = $user_id;
-        $prepost->revisados            = $request ->revisados;
-        $prepost->estadorevisado       = $request ->estadorevisado;
-        $prepost->obs2                 = $request ->obs2;
-        $prepost->backoffice           = $user_id;
 
-        $prepost->save();
+        $datosprepost=request()->except('_token');
+
+        if($request->hasFile('confronta')){
+            $datosprepost['confronta']=$request->file('confronta')->store('uploads','public');
+        }
+
+
+        // $user_id = Auth::user()->cedula;
+        // $user_nombre = Auth::user()->name;
+        // $prepost = new prepostDigital();
+        // $prepost->numero             = $request ->numero;
+        // $prepost->nombres              = $request ->nombres;
+        // $prepost->documento            = $request ->documento;
+        // $prepost->fexpedicion          = $request ->fexpedicion;
+        // $prepost->tipocliente          = $request ->tipocliente;
+        // $prepost->correo               = $request ->correo;
+        // $prepost->selector             = $request ->selector;
+        // $prepost->departamento         = $request ->departamento;
+        // $prepost->ciudad               = $request ->id_ciudad;
+        // $prepost->barrio               = $request ->barrio;
+        // $prepost->direccion            = $request ->direccion;
+        // $prepost->corte                = $request ->corte;
+        // $prepost->planventa            = $request ->plan;
+        // $prepost->activacion           = $request ->activacion;
+        // $prepost->token                = $request ->token;
+        // $prepost->orden                = $request ->orden;
+        // $prepost->observaciones        = $request ->observaciones;
+        // $prepost->agente               = $user_id;
+        // $prepost->revisados            = $request ->revisados;
+        // $prepost->estadorevisado       = $request ->estadorevisado;
+        // $prepost->obs2                 = $request ->obs2;
+        // $prepost->backoffice           = $user_id;
+
+        // $prepost->save();
+        prepostDigital::insert($datosprepost);
         return back() ;
 
 
@@ -154,10 +172,12 @@ class PrepostDigitalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-
-
     {
-
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $prepost = prepostDigital::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -172,7 +192,7 @@ class PrepostDigitalController extends Controller
 
 
        $prepost=prepostDigital::findOrFail($id);
-        return view('prepostdigital.edit',compact('prepost','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('prepostdigital.edit',compact('hora','date','user_nombre','user_id','prepost','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
 
     }
     /**
@@ -186,13 +206,16 @@ class PrepostDigitalController extends Controller
     {
 
         $usuarios = User::all();
-        $user_id = Auth::user()->id;
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
         $revisadoses = Revisados::all();
         $datosPrepost=request()->except(['_token','_method']);
         prepostDigital::where('id','=',$id)->update($datosPrepost);
         $prepost=prepostDigital::findOrFail($id);
-        return view('prepostdigital.edit',compact('prepost', 'usuarios','revisadoses'));
+        return view('prepostdigital.edit',compact('hora','date','user_nombre','user_id','prepost', 'usuarios','revisadoses'));
     }
 
     /**

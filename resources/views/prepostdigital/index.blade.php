@@ -8,9 +8,9 @@
                 <h6>Cantidad de Registros:  {{ $preposts->total() }}</h6>
                 <br>
                 <div class="col-md-4"   >
-                <form action="/searchprepost" method="GET">
+                <form action="/searchprepostdigital" method="GET">
                 <div class="input-group">
-        <input type="searchprepost" name="searchprepost" class="form-control">
+        <input type="search" name="searchprepostdigital" class="form-control">
         <span class="input-group-prepend">
             <button type="submit" class="btn btn-primary">Buscar</button>
             </span>
@@ -78,7 +78,7 @@
 @section('js')
 <script>
 Swal.fire(
-'PRE POST',
+'PRE POST DIGITAL',
 'Lista de registros',
 'success'
 )

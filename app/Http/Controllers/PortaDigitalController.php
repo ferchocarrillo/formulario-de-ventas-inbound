@@ -40,13 +40,11 @@ class PortaDigitalController extends Controller
      */
     public function index()
     {
-
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
         $planadquiere = Planadquiere::all();
         $origen = Origen::all();
         $usuarios = User::all();
-
         $portadigitals = PortaDigital::orderBy('revisados', 'asc')->paginate(10);
         return view('portadigital.index',compact('portadigitals','depto','tipoCliente','origen','planadquiere', 'usuarios'));
     }
@@ -73,11 +71,7 @@ class PortaDigitalController extends Controller
 
     public function searchportadigital( Request $request)
     {
-
-
-
         $portadigitals = PortaDigital::all();
-
         $searchportadigital = $request->get('searchportadigital');
         $portadigitals= PortaDigital::firstOrNew()->where('numero', 'like', '%'.$searchportadigital.'%')->paginate(5);
         return view('portadigital.index', ['portadigitals' => $portadigitals]);
@@ -92,49 +86,11 @@ class PortaDigitalController extends Controller
     public function store(Request $request , Portadigital $portadigitals)
     {
         $datosportadig=request()->except('_token');
-
         if($request->hasFile('confronta')){
             $datosportadig['confronta']=$request->file('confronta')->store('uploads','public');
         }
-
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
-
-
-        // $user_id = Auth::user()->cedula;
-        // $user_nombre = Auth::user()->name;
-
-        // $portadigitals = new PortaDigital();
-        // $portadigitals->numero          = $request ->numero;
-        // $portadigitals->documento       = $request ->documento;
-        // $portadigitals->nombres         = $request ->nombres;
-        // $portadigitals->apellidos       = $request ->apellidos;
-        // $portadigitals->correo          = $request ->correo;
-        // $portadigitals->selector        = $request ->selector;
-        // $portadigitals->departamento    = $request ->departamento;
-        // $portadigitals->ciudad          = $request ->id_ciudad;
-        // $portadigitals->barrio          = $request ->barrio;
-        // $portadigitals->direccion       = $request ->direccion;
-        // $portadigitals->nip             = $request ->nip;
-        // $portadigitals->tipocliente     = $request ->tipocliente;
-        // $portadigitals->planadquiere    = $request ->planadquiere;
-        // $portadigitals->ncontacto       = $request ->ncontacto;
-        // $portadigitals->imei            = $request ->imei;
-        // $portadigitals->fvc             = $request ->fvc;
-        // $portadigitals->fentrega        = $request ->fentrega;
-        // $portadigitals->fexpedicion     = $request ->fexpedicion;
-        // $portadigitals->fnacimiento     = $request ->fnacimiento;
-        // $portadigitals->origen          = $request ->origen;
-        // $portadigitals->ngrabacion      = $request ->ngrabacion;
-        // $portadigitals->orden           = $request ->orden;
-        // $portadigitals->observaciones   = $request ->observaciones;
-        // $portadigitals->agente          = $user_id;
-        // $portadigitals->revisados       = $request ->revisados;
-        // $portadigitals->estadorevisado  = $request ->estadorevisado;
-        // $portadigitals->obs2            = $request ->obs2;
-        // $portadigitals->backoffice      = $user_id;
-        // $portadigitals->save();
-
         PortaDigital::insert($datosportadig);
         return back();
     }
@@ -201,12 +157,12 @@ class PortaDigitalController extends Controller
         $hora = Carbon::now()->format('H:i:s');
         $usuarios = User::all();
         $user_id = Auth::user()->id;
-        $user_nombre = Auth::user()->name;e;
+        $user_nombre = Auth::user()->name;
         $revisadoses = Revisados::all();
         $datosPorta=request()->except(['_token','_method']);
         PortaDigital::where('id','=',$id)->update($datosPorta);
         $portadigitals=PortaDigital::findOrFail($id);
-        return view('portadigital.edit',compact('date','hora','portadigitals', 'usuarios','revisadoses'));
+        return view('portadigital.edit',compact('user_id','user_nombre','date','portadigitals', 'usuarios','revisadoses'));
     }
 
     /**

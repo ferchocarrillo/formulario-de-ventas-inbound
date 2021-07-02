@@ -32,6 +32,7 @@ use App\tPlanes;
 use App\tPago;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PhoenixExport;
+use Carbon\Carbon;
 
 class PhoenixController extends Controller
 {
@@ -63,6 +64,11 @@ class PhoenixController extends Controller
      */
     public function create()
     {
+            Carbon::setLocale('co');
+	        $date = Carbon::now()->format('Y-m-d');
+            $hora = Carbon::now()->format('H:i:s');
+            $user_id = Auth::user()->cedula;
+            $user_nombre = Auth::user()->name;
             $depto = Departamentos::all();
             $tipoCliente = TipoCliente::all();
             $planadquiere = Planadquiere::all();
@@ -73,7 +79,7 @@ class PhoenixController extends Controller
             $tipoPagoses = tPago::all();
 
 
-             return view('phoenix.create',compact('depto','tipoPagoses','tplanes','modelos','tipoCliente','origen','planadquiere', 'usuarios'));
+             return view('phoenix.create',compact('hora','date','user_nombre','user_id','depto','tipoPagoses','tplanes','modelos','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
     /**
@@ -84,38 +90,16 @@ class PhoenixController extends Controller
      */
     public function store(Request $request  , phoenix $phoenixes)
     {
+        $datosphoenix=request()->except('_token');
+        if($request->hasFile('confronta')){
+            $datosphoenix['confronta']=$request->file('confronta')->store('uploads','public');
+        }
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
-
-        $phoenixes = new phoenix();
-        $phoenixes->numero          = $request ->numero;
-        $phoenixes->documento       = $request ->documento;
-        $phoenixes->nombres         = $request ->nombres;
-        $phoenixes->apellidos       = $request ->apellidos;
-        $phoenixes->correo          = $request ->correo;
-        $phoenixes->departamento    = $request ->departamento;
-        $phoenixes->ciudad          = $request ->id_ciudad;
-        $phoenixes->barrio          = $request ->barrio;
-        $phoenixes->direccion       = $request ->direccion;
-        $phoenixes->nip             = $request ->nip;
-        $phoenixes->tipocliente     = $request ->tipocliente;
-        $phoenixes->selector        = $request ->selector;
-        $phoenixes->ncontacto       = $request ->ncontacto;
-        $phoenixes->modelo          = $request ->modelo;
-        $phoenixes->tplanes         = $request ->tplanes;
-        $phoenixes->tipoPagos       = $request ->tipoPagos;
-        $phoenixes->ngrabacion      = $request ->ngrabacion;
-        $phoenixes->orden           = $request ->orden;
-        $phoenixes->observaciones   = $request ->observaciones;
-        $phoenixes->agente          = $user_id;
-        $phoenixes->revisados       = $request ->revisados;
-        $phoenixes->estadorevisado  = $request ->estadorevisado;
-        $phoenixes->obs2            = $request ->obs2;
-        $phoenixes->backoffice      = $user_id;
-        $phoenixes->save();
-
-
+        phoenix::insert($datosphoenix);
         return back();
+
+
     }
 
 
@@ -147,6 +131,11 @@ class PhoenixController extends Controller
     public function edit($id)
 
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $phoenixes = phoenix::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -156,7 +145,7 @@ class PhoenixController extends Controller
         $usuarios = User::all();
         $this->authorize('haveaccess','phoenix.edit');
         $phoenixes=phoenix::findOrFail($id);
-        return view('phoenix.edit',compact('phoenixes','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('phoenix.edit',compact('hora','date','user_nombre','user_id','phoenixes','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
     /**
@@ -168,7 +157,12 @@ class PhoenixController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $usuarios = User::all();
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $usuarios = User::all();
         $user_id = Auth::user()->id;
         $user_nombre = Auth::user()->name;
@@ -176,7 +170,7 @@ class PhoenixController extends Controller
         $datosPorta=request()->except(['_token','_method']);
         phoenix::where('id','=',$id)->update($datosPorta);
         $phoenixes=phoenix::findOrFail($id);
-        return view('phoenix.edit',compact('phoenixes', 'usuarios','revisadoses'));
+        return view('phoenix.edit',compact('user_id','user_nombre','date','hora','phoenixes', 'usuarios','revisadoses'));
     }
 
     /**

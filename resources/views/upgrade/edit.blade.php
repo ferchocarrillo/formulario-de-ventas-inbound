@@ -72,7 +72,7 @@
 
         <div class="form-group col-md-6">
             <label for="planhistorico">Plan historico</label>
-            <input type="number" class="form-control-new"
+            <input type="text" class="form-control-new"
             id="planhistorico"
             placeholder="Plan historico"
             name="planhistorico"

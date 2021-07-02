@@ -110,36 +110,6 @@ class PrepostController extends Controller
             $datosprepost['confronta']=$request->file('confronta')->store('uploads','public');
         }
 
-
-
-
-
-        // $user_id = Auth::user()->cedula;
-        // $user_nombre = Auth::user()->name;
-        // $prepost = new Prepost();
-        // $prepost->numero             = $request ->numero;
-        // $prepost->nombres              = $request ->nombres;
-        // $prepost->documento            = $request ->documento;
-        // $prepost->fexpedicion          = $request ->fexpedicion;
-        // $prepost->tipocliente          = $request ->tipocliente;
-        // $prepost->correo               = $request ->correo;
-        // $prepost->departamento         = $request ->departamento;
-        // $prepost->ciudad               = $request ->id_ciudad;
-        // $prepost->barrio               = $request ->barrio;
-        // $prepost->direccion            = $request ->direccion;
-        // $prepost->corte                = $request ->corte;
-        // $prepost->planventa            = $request ->plan;
-        // $prepost->activacion           = $request ->activacion;
-        // $prepost->token                = $request ->token;
-        // $prepost->orden                = $request ->orden;
-        // $prepost->observaciones        = $request ->observaciones;
-        // $prepost->agente               = $user_id;
-        // $prepost->revisados            = $request ->revisados;
-        // $prepost->estadorevisado       = $request ->estadorevisado;
-        // $prepost->obs2                 = $request ->obs2;
-        // $prepost->backoffice           = $user_id;
-
-        // $prepost->save();
         Prepost::insert($datosprepost);
         return back() ;
 

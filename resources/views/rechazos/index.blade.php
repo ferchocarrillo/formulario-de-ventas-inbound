@@ -25,11 +25,10 @@
         <th scope="col">Numero</th>
         <th scope="col">Nombres</th>
         <th scope="col">Documento</th>
-        <th scope="col">Plan venta</th>
-        <th scope="col">Observaciones</th>
-        <th scope="col">Fecha venta</th>
-        <th scope="col">Revision</th>
         <th scope="col">Causal</th>
+        <th scope="col">Linea</th>
+        <th scope="col">Fecha rechazo</th>
+        <th scope="col">Modalidad</th>
         <th scope="col">Agente</th>
         <th colspan="3">Acciones</th>
        </tr>
@@ -43,10 +42,9 @@
         <td>{{$rechazo->documento}}</td>
         <td>{{$rechazo->causal}}</td>
         <td>{{$rechazo->linea}}</td>
-        <td>{{$rechazo->competencia}}</td>
         <td>{{$rechazo->frechazo}}</td>
         <td>{{$rechazo->modalidad}}</td>
-        <td>{{$rechazo->observacion}}</td>
+        <td>{{$rechazo->agente}}</td>
         <td>
             <form action="{{url('/rechazos/'.$rechazo->id)}}" method="post" style='display:inline'>
                 @csrf

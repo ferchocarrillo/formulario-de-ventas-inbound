@@ -27,6 +27,7 @@ use App\Corte;
 use App\Revisados;
 use App\User;
 use stdClass;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LineaNuevaExport;
 
@@ -58,6 +59,11 @@ class LineaNuevaController extends Controller
      */
     public function create()
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
         $planadquiere = Planadquiere::all();
@@ -65,7 +71,7 @@ class LineaNuevaController extends Controller
         $usuarios = User::all();
 
 
-        return view('lineanueva.create',compact('depto','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('lineanueva.create',compact('hora','date','user_nombre','user_id','depto','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
 
@@ -88,34 +94,21 @@ class LineaNuevaController extends Controller
      */
     public function store(Request $request , lineaNueva $lineanuevas)
     {
+
+
+        $datoslineanueva=request()->except('_token');
+
+        if($request->hasFile('confronta')){
+            $datoslineanueva['confronta']=$request->file('confronta')->store('uploads','public');
+        }
+
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
 
-        $lineanuevas = new lineaNueva();
-        $lineanuevas->numero          = $request ->numero;
-        $lineanuevas->documento       = $request ->documento;
-        $lineanuevas->nombres         = $request ->nombres;
-        $lineanuevas->apellidos       = $request ->apellidos;
-        $lineanuevas->correo          = $request ->correo;
-        $lineanuevas->departamento    = $request ->departamento;
-        $lineanuevas->ciudad          = $request ->id_ciudad;
-        $lineanuevas->barrio          = $request ->barrio;
-        $lineanuevas->direccion       = $request ->direccion;
-        $lineanuevas->tipocliente     = $request ->tipocliente;
-        $lineanuevas->selector        = $request ->selector;
-        $lineanuevas->ncontacto       = $request ->ncontacto;
-        $lineanuevas->ngrabacion      = $request ->ngrabacion;
-        $lineanuevas->orden           = $request ->orden;
-        $lineanuevas->observaciones   = $request ->observaciones;
-        $lineanuevas->agente          = $user_id;
-        $lineanuevas->revisados       = $request ->revisados;
-        $lineanuevas->estadorevisado  = $request ->estadorevisado;
-        $lineanuevas->obs2            = $request ->obs2;
-        $lineanuevas->backoffice      = $user_id;
-        $lineanuevas->save();
-
-
+        lineaNueva::insert($datoslineanueva);
         return back();
+
+
     }
 
     /**
@@ -126,6 +119,11 @@ class LineaNuevaController extends Controller
      */
     public function show($id)
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $linenuevas = lineaNueva::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -135,7 +133,7 @@ class LineaNuevaController extends Controller
         $usuarios = User::all();
         $this->authorize('haveaccess','lineanueva.edit');
         $linenuevas = lineaNueva::findOrFail($id);
-        return view('lineanueva.edit',compact('linenuevas','depto','revisado','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('lineanueva.edit',compact('hora','date','user_nombre','user_id','linenuevas','depto','revisado','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
     /**
@@ -146,6 +144,11 @@ class LineaNuevaController extends Controller
      */
     public function edit($id)
     {
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $lineanuevas=lineaNueva::findOrFail($id);
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -155,7 +158,7 @@ class LineaNuevaController extends Controller
         $usuarios = User::all();
         $this->authorize('haveaccess','lineanueva.edit');
 
-        return view('lineanueva.edit',compact('lineanuevas','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('lineanueva.edit',compact('user_id','user_nombre','date','hora','lineanuevas','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
      }
 
     /**
@@ -167,14 +170,17 @@ class LineaNuevaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
         $usuarios = User::all();
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
         $revisadoses = Revisados::all();
         $datosPorta=request()->except(['_token','_method']);
         lineaNueva::where('id','=',$id)->update($datosPorta);
         $lineanuevas=lineaNueva::findOrFail($id);
-        return view('lineanueva.edit',compact('lineanuevas', 'usuarios','revisadoses'));
+        return view('lineanueva.edit',compact('user_id','user_nombre','date','hora','lineanuevas', 'usuarios','revisadoses'));
     }
 
     /**

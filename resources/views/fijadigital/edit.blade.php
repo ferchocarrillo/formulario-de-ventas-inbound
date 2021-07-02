@@ -19,62 +19,53 @@
 <form name="f1" action="{{ url('/fijadigital/'.$fijas->id)}}" method="POST" enctype="multipart/form-data" class="form-horizontal">
     @csrf
     @method('PATCH')
+    <input type="hidden" id="backoffice" name="backoffice" value="{{ $user_id}}">
 
     <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
             <label for="nombres">Nombres</label>
                <input type="text"
-               class="form-control"
+               class="form-control-new"
                id="nombres"
                placeholder="Nombres"
                name="nombres"
                value="{{ old('nombres' , $fijas->nombres)}}">
 
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="documento">Documento</label>
                <input type="number"
-               class="form-control"
+               class="form-control-new"
                id="documento"
                placeholder="Documento"
                name="documento"
                value="{{ old('documento' , $fijas->documento)}}">
 
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="fexpedicion">Fecha de expedicion</label>
                <input type="date"
-               class="form-control"
+               class="form-control-new"
                id="fexpedicion"
                placeholder="Fecha de expedicion"
                name="fexpedicion"
                value="{{ old('fexpedicion' , $fijas->fexpedicion)}}">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="correo">Correo Electronico</label>
                <input type="text"
-               class="form-control"
+               class="form-control-new"
                id="correo"
                placeholder="Correo"
                name="correo"
                value="{{ old('correo' , $fijas->correo)}}">
           </div>
 
-          <div class="form-group col-md-4">
-            <label for="selector">Selector</label>
-               <input type="text"
-               class="form-control"
-               id="selector"
-               placeholder="Selector"
-               name="selector"
-               value="{{ old('selector' , $fijas->selector)}}">
-          </div>
-
 
           <div class="form-group col-md-4">
             <label for="departamento">Departamento</label>
                <input type="text"
-               class="form-control"
+               class="form-control-new"
                id="departamento"
                placeholder="Departamento"
                name="departamento"
@@ -84,59 +75,59 @@
           <div class="form-group col-md-4">
             <label for="ciudad">Ciudad</label>
                <input type="text"
-               class="form-control"
-               id="ciudad"
+               class="form-control-new"
+               id="id_ciudad"
                placeholder="ciudad"
-               name="Ciudad"
-               value="{{ old('ciudad' , $fijas->ciudad)}}">
+               name="id_ciudad"
+               value="{{ old('id_ciudad' , $fijas->id_ciudad)}}">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="barrio">Barrio</label>
                <input type="text"
-               class="form-control"
+               class="form-control-new"
                id="barrio"
                placeholder="barrio"
                name="Barrio"
                value="{{ old('barrio' , $fijas->barrio)}}">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="direccion">Direccion</label>
                <input type="text"
-               class="form-control"
+               class="form-control-new"
                id="direccion"
                placeholder="direccion"
                name="Direccion"
                value="{{ old('direccion' , $fijas->direccion)}}">
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
                <label for="estrato">Estrato</label>
-               <input type="number" class="form-control"
+               <input type="number" class="form-control-new"
                id="estrato"
                placeholder="Estrato"
                name="estrato"
                value="{{ old('estrato', $fijas->estrato)}}">
           </div>
 
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-4">
             <label for="ngrabacion">Numero de grabacion</label>
-            <input type="number" class="form-control"
+            <input type="number" class="form-control-new"
             id="ngrabacion"
             placeholder="Numero de grabacion"
             name="ngrabacion"
             value="{{ old('ngrabacion', $fijas->ngrabacion)}}">
        </div>
-       <div class="form-group col-md-6">
+       <div class="form-group col-md-4">
         <label for="ncontacto">Numero de contacto</label>
-        <input type="number" class="form-control"
+        <input type="number" class="form-control-new"
         id="ncontacto"
         placeholder="Numero de contacto"
         name="ncontacto"
         value="{{ old('ncontacto', $fijas->ncontacto)}}">
        </div>
 
-       <div class="form-group col-md-6">
+       <div class="form-group col-md-4">
         <label for="producto">Producto</label>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control-new"
         id="producto"
         placeholder="Producto"
         name="producto"
@@ -146,7 +137,7 @@
         <div class="row">
             <div class="col col-lg-1">
             <label for="fox">Fox</label>
-            <br><br><input type="text" class="form-control"
+            <br><br><input type="text" class="form-control-new"
             id="fox"
             placeholder="0"
             name="fox"
@@ -156,7 +147,7 @@
          <div class="col col-lg-1">
             <label for="hbo">Hbo</label>
             <br><br>
-            <input type="text" class="form-control"
+            <input type="text" class="form-control-new"
         id="hbo"
         placeholder="0"
         name="hbo"
@@ -164,7 +155,7 @@
           </div>
           <div class="col col-lg-1">
             <label for="cds_movil">Cds movil</label>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control-new"
         id="cds_movil"
         placeholder="0"
         name="cds_movil"
@@ -172,7 +163,7 @@
           </div>
           <div class="col col-lg-1">
             <label for="cds_fija">Cds fija</label>
-            <br><br><input type="text" class="form-control"
+            <br><br><input type="text" class="form-control-new"
         id="cds_fija"
         placeholder="0"
         name="cds_fija"
@@ -180,7 +171,7 @@
           </div>
           <div class="col col-lg-1">
             <label for="Paquete_Adultos">P adultos</label>
-            <input type="text" class="form-control"
+            <input type="text" class="form-control-new"
             id="Paquete_Adultos"
             placeholder="0"
             name="Paquete_Adultos"
@@ -188,7 +179,7 @@
           </div>
           <div class="col col-lg-1">
             <label for="Decodificador">Deco</label>
-            <br><br><input type="text" class="form-control"
+            <br><br><input type="text" class="form-control-new"
         id="Decodificador"
         placeholder="0"
         name="Decodificador"
@@ -197,7 +188,7 @@
 
           <div class="col col-lg-1">
             <label for="svas_lineas">Svas_lineas</label>
-            <br><br><input type="text" class="form-control"
+            <br><br><input type="text" class="form-control-new"
             id="svas_lineas"
             placeholder="0"
             name="svas_lineas"
@@ -205,7 +196,7 @@
           </div>
           <div class="form-group col-lg-2">
             <label for="velocidad">Velocidad</label>
-            <br><br><input type="text" class="form-control"
+            <br><br><input type="text" class="form-control-new"
             id="velocidad"
             placeholder="Velocidad"
             name="velocidad"
@@ -213,7 +204,7 @@
            </div>
            <div class="form-group col-lg-3">
             <label for="tecnologia">Tecnologia</label>
-            <br><br><input type="text" class="form-control"
+            <br><br><input type="text" class="form-control-new"
             id="tecnologia"
             placeholder="Tecnologia"
             name="tecnologia"
@@ -222,29 +213,34 @@
 
         </div>
     </div>
-   <div class="form-group col-md-6">
-    <label for="orden">Numero de Orden</label>
-    <input type="text" class="form-control"
-    id="orden"
-    placeholder="orden"
-    name="orden"
-    value="{{ old('orden', $fijas->orden)}}">
-   </div>
+
+
+
+    <div class="form-group col-md-6">
+        <label for="orden">Numero de Orden</label>
+        <input type="text" class="form-control-new"
+        id="orden"
+        placeholder="orden"
+        name="orden"
+        value="{{ old('orden', $fijas->orden)}}">
+       </div>
+
+
 
 
        <div class="form-group col-md-6">
         <label for="observacion">Observacion</label>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control-new"
         id="observacion"
         placeholder="observacion"
         name="observacion"
         value="{{ old('observacion', $fijas->observacion)}}">
        </div>
 
-       <div class="form-group col-md-6">
+       <div class="form-group col-md-4">
         <label for="revisados">Revision</label>
 
-         <select name="revisados" id="revisados" class="form-control"  required>
+         <select name="revisados" id="revisados" class="form-control-new"  required>
             <option value="">Revisión</option>
             @foreach($revisadoses as $revisados)
                 <option value="{{ $revisados->estado}}">{{ $revisados->estado }}</option>
@@ -252,18 +248,23 @@
       </select>
         </div>
 
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
          <label for="estadorevisados">Estado de la revision</label>
-         <select name="estadorevisado" id="estadorevisado" class="form-control" placeholder="Estado de la revisión" required></select>
+         <select name="estadorevisado" id="estadorevisado" class="form-control-new" placeholder="Estado de la revisión" required></select>
      </div>
 
+     <div class="form-group col-md-4">
+        <span><label for="confronta">Confronta</label><br>
 
+        <a href="{{ asset('storage').'/'.$fijas->confronta}}"><img src="{{ asset('storage').'/'.$fijas->confronta}}" alt="" height="130" width="300"></a>
+    </span>
+    </div>
 
 
 
 
     <div class="form-group col-md-12">
-        <textarea class="form-control"  id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
+        <textarea class="form-control-new"  id ="obs2" name="obs2" rows="3" placeholder="Observaciones BackOficce"></textarea>
         </div>
 
 </div>

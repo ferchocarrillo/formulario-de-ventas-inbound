@@ -21,6 +21,7 @@ use App\Adicionales;
 use App\Producto;
 use App\Planadquiere;
 use App\User;
+use Carbon\Carbon;
 use stdClass;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Revisados;
@@ -50,6 +51,11 @@ class FijaDigitalController extends Controller
      */
     public function create()
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $depto = Departamentos::all();
         $estrato = Estrato::all();
         $velocidad = Velocidad::all();
@@ -59,7 +65,7 @@ class FijaDigitalController extends Controller
         $usuarios = User::all();
         $user_id = Auth::user()->id;
         $fijas = fijaDigital::all();
-        return view('fijadigital.create',compact('fijas','depto','estrato','velocidad','tecnologia','producto', 'adicionales','usuarios'));
+        return view('fijadigital.create',compact('hora','date','user_nombre','user_id','fijas','depto','estrato','velocidad','tecnologia','producto', 'adicionales','usuarios'));
     }
 
     public function searchdigitalfija( Request $request)
@@ -79,41 +85,56 @@ class FijaDigitalController extends Controller
      */
     public function store(Request $request, fijaDigital $fijas)
     {
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+
+        $datosFija=request()->except('_token');
+
+        if($request->hasFile('confronta')){
+            $datosFija['confronta']=$request->file('confronta')->store('uploads','public');
+        }
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
 
-        $fijas = new fijaDigital();
-        $fijas->nombres         = $request ->nombres;
-        $fijas->documento       = $request ->documento;
-        $fijas->fexpedicion     = $request ->fexpedicion;
-        $fijas->correo          = $request ->correo;
-        $fijas->departamento    = $request ->departamento;
-        $fijas->ciudad          = $request ->id_ciudad;
-        $fijas->direccion       = $request ->direccion;
-        $fijas->barrio          = $request ->barrio;
-        $fijas->estrato         = $request ->estrato;
-        $fijas->selector        = $request ->selector;
-        $fijas->ngrabacion      = $request ->ngrabacion;
-        $fijas->ncontacto       = $request ->ncontacto;
-        $fijas->producto        = $request ->producto;
-        $fijas->FOX             = $request ->FOX;
-        $fijas->HBO             = $request ->HBO;
-        $fijas->cds_movil       = $request ->cds_movil;
-        $fijas->cds_fija        = $request ->cds_fija;
-        $fijas->Paquete_Adultos = $request ->Paquete_Adultos;
-        $fijas->Decodificador   = $request ->Decodificador;
-        $fijas->Svas_lineas     = $request ->Svas_lineas;
-        $fijas->velocidad       = $request ->velocidad;
-        $fijas->tecnologia      = $request ->tecnologia;
-        $fijas->orden           = $request ->orden;
-        $fijas->observacion     = $request ->observacion;
-        $fijas->agente          = $user_id;
-        $fijas->revisados       = $request ->revisados;
-        $fijas->estadorevisado  = $request ->estadorevisado;
-        $fijas->obs2            = $request ->obs2;
-        $fijas->backoffice      = $user_id;
-        $fijas->save();
-        return back();
+        fijaDigital::insert($datosFija);
+        return back() ;
+
+        // $user_id = Auth::user()->cedula;
+        // $user_nombre = Auth::user()->name;
+
+        // $fijas = new fijaDigital();
+        // $fijas->nombres         = $request ->nombres;
+        // $fijas->documento       = $request ->documento;
+        // $fijas->fexpedicion     = $request ->fexpedicion;
+        // $fijas->correo          = $request ->correo;
+        // $fijas->departamento    = $request ->departamento;
+        // $fijas->ciudad          = $request ->id_ciudad;
+        // $fijas->direccion       = $request ->direccion;
+        // $fijas->barrio          = $request ->barrio;
+        // $fijas->estrato         = $request ->estrato;
+        // $fijas->selector        = $request ->selector;
+        // $fijas->ngrabacion      = $request ->ngrabacion;
+        // $fijas->ncontacto       = $request ->ncontacto;
+        // $fijas->producto        = $request ->producto;
+        // $fijas->FOX             = $request ->FOX;
+        // $fijas->HBO             = $request ->HBO;
+        // $fijas->cds_movil       = $request ->cds_movil;
+        // $fijas->cds_fija        = $request ->cds_fija;
+        // $fijas->Paquete_Adultos = $request ->Paquete_Adultos;
+        // $fijas->Decodificador   = $request ->Decodificador;
+        // $fijas->Svas_lineas     = $request ->Svas_lineas;
+        // $fijas->velocidad       = $request ->velocidad;
+        // $fijas->tecnologia      = $request ->tecnologia;
+        // $fijas->orden           = $request ->orden;
+        // $fijas->observacion     = $request ->observacion;
+        // $fijas->agente          = $user_id;
+        // $fijas->revisados       = $request ->revisados;
+        // $fijas->estadorevisado  = $request ->estadorevisado;
+        // $fijas->obs2            = $request ->obs2;
+        // $fijas->backoffice      = $user_id;
+        // $fijas->save();
+        // return back();
 
 
 
@@ -141,7 +162,11 @@ class FijaDigitalController extends Controller
 
 
     {
-
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $fijas = fijaDigital::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -152,7 +177,7 @@ class FijaDigitalController extends Controller
 
         $this->authorize('haveaccess','fijadigital.edit');
         $fijas=fijaDigital::findOrFail($id);
-        return view('fijadigital.edit',compact('fijas','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        return view('fijadigital.edit',compact('user_id','user_nombre','date','hora','fijas','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
 
     }
 
@@ -165,7 +190,12 @@ class FijaDigitalController extends Controller
      */
     public function update(Request $request, $id)
     {
+        Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
 
+        $usuarios = User::all();
+        $user_id = Auth::user()->cedula;
         $usuarios = User::all();
         $user_id = Auth::user()->id;
         $user_nombre = Auth::user()->name;
@@ -173,7 +203,7 @@ class FijaDigitalController extends Controller
         $datosFija=request()->except(['_token','_method']);
         fijaDigital::where('id','=',$id)->update($datosFija);
         $fijas=fijaDigital::findOrFail($id);
-        return view('fija.edit',compact('fijas', 'usuarios','revisadoses'));
+        return view('fijadigital.edit',compact('user_id','user_nombre','date','hora','fijas', 'usuarios','revisadoses'));
     }
 
     /**

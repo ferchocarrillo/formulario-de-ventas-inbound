@@ -16,6 +16,8 @@ use App\Linea;
 use App\User;
 use stdClass;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\RechazosExport;
 
 
 class RechazosController extends Controller
@@ -50,6 +52,14 @@ class RechazosController extends Controller
 
         return view('rechazos/create',compact('user_nombre','user_id','hora','date','causales','linea','depto'));
     }
+    public function searchrechazos( Request $request)
+    {
+
+        $rechazos = Rechazos::all();
+        $searchrechazos = $request->get('searchrechazos');
+        $rechazos= Rechazos::firstOrNew()->where('numero_de_celular', 'like', '%'.$searchrechazos.'%')->paginate(5);
+        return view('rechazos.index', ['rechazos' => $rechazos]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,31 +80,6 @@ class RechazosController extends Controller
         if($request->hasFile('imgrechazo')){
             $datosrechazos['imgrechazo']=$request->file('imgrechazo')->store('uploads','public');
         }
-        // $date1 = $request->input('claro');
-        // $date2 = $request->input('tigo');
-        // $date3 = $request->input('directv');
-        // $date4 = $request->input('wow');
-        // $date5 = $request->input('barrio');
-        // $date6 = $request->input('otros');
-    //     $user_id = Auth::user()->cedula;
-    //     $user_nombre = Auth::user()->name;
-    //     $rechazos = new Rechazos();
-    //     $rechazos->numero_de_celular             = $request ->numero_de_celular;
-    //     $rechazos->nombres                       = $request ->nombres;
-    //     $rechazos->documento                     = $request ->documento;
-    //     $rechazos->causal                        = $request ->causal;
-    //     $rechazos->linea                         = $request ->linea;
-    //     $rechazos->departamento                  = $request ->departamento;
-    //     $rechazos->ciudad                        = $request ->id_ciudad;
-    //     $rechazos->competencia                   = $date1." " .$date2." " .$date3." " .$date4." " .$date5." " .$date6;
-    //     $rechazos->modalidad                     = $request ->modalidad;
-    //     $rechazos->frechazo                      = $request ->frechazo;
-    //     $rechazos->observacion                   = $request ->observacion;
-    //     $rechazos->agente                        = $user_id.','.$user_nombre;
-    //     $rechazos->hora    	                 = $request ->hora;
-	// $rechazos->dia    		         = $request ->dia;
-    //     $rechazos->save();
-
     Rechazos::insert($datosrechazos);
         return back() ;
     }
@@ -142,8 +127,18 @@ class RechazosController extends Controller
      * @param  \App\Rechazos  $rechazos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rechazos $rechazos)
+    public function destroy($id)
     {
-        //
-    }
+        $this->authorize('haveaccess','rechazos.destroy');
+        Rechazos::destroy($id);
+
+        return redirect()->route('rechazos.index')
+            ->with('status_success','registro successfully removed');
+}
+
+public function exportExcel()
+{
+return Excel::download(new RechazosExport, 'rechazos-list.xlsx');
+
+}
 }

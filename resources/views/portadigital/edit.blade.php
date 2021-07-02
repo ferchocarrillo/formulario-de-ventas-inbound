@@ -92,13 +92,13 @@
   </div>
 
   <div class="form-group col-md-6">
-    <label for="ciudad">Ciudad</label>
+    <label for="id_ciudad">Ciudad</label>
        <input type="text"
        class="form-control-new"
-       id="ciudad"
+       id="id_ciudad"
        placeholder="ciudad"
-       name="Ciudad"
-       value="{{ old('ciudad' , $portadigitals->ciudad)}}">
+       name="id_ciudad"
+       value="{{ old('id_ciudad' , $portadigitals->id_ciudad)}}">
   </div>
   <div class="form-group col-md-6">
     <label for="barrio">Barrio</label>
@@ -241,7 +241,7 @@
     <label for="revisados">Revision</label>
 
      <select name="revisados" id="revisados" class="form-control-new"  required>
-        <option value=""></option>
+        <option value="">seleccionar</option>
         @foreach($revisadoses as $revisados)
             <option value="{{ $revisados->estado}}">{{ $revisados->estado }}</option>
         @endforeach

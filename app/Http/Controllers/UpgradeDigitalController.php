@@ -17,10 +17,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UpgradeDigitalExport;
+use Carbon\Carbon;
 
 
 class UpgradeDigitalController extends Controller
 {
+
+    public function __construct()
+    {
+        Carbon::setLocale('co');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +46,11 @@ class UpgradeDigitalController extends Controller
      */
     public function create()
     {
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $departamentos = Departamentos::all();
         $tipoCliente = TipoCliente::all();
         $planadquiere = Planadquiere::all();
@@ -51,7 +62,7 @@ class UpgradeDigitalController extends Controller
         $upgrade = upgradeDigital::all();
 
         $usuarios = User::all();
-        return view('upgradedigital.create',compact('departamentos','corte','planhistorico','planadquiere','activacion','tipoCliente','origen', 'usuarios'));
+        return view('upgradedigital.create',compact('hora','date','user_nombre','user_id','departamentos','corte','planhistorico','planadquiere','activacion','tipoCliente','origen', 'usuarios'));
     }
 
 
@@ -72,29 +83,40 @@ class UpgradeDigitalController extends Controller
     public function store(Request $request)
 
     {
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+
+        $datosUpgrade=request()->except('_token');
+
+        if($request->hasFile('confronta')){
+            $datosUpgrade['confronta']=$request->file('confronta')->store('uploads','public');
+        }
         $user_id = Auth::user()->cedula;
         $user_nombre = Auth::user()->name;
 
-        $upgrade = new upgradeDigital();
-        $upgrade->nombres             = $request ->nombres;
-        $upgrade->documento           = $request ->documento;
-        $upgrade->correo              = $request ->correo;
-        $upgrade->fventa              = $request ->fventa;
-        $upgrade->numero              = $request ->numero;
-        $upgrade->corte               = $request ->corte;
-        $upgrade->selector            = $request ->selector;
-        $upgrade->planhistorico       = $request->planhistorico;
-        $upgrade->planventa           = $request->planadquiere;
-        $upgrade->activacion          = $request ->activacion;
-        $upgrade->ngrabacion          = $request ->ngrabacion;
-        $upgrade->orden               = $request ->orden;
-        $upgrade->observacion         = $request ->observacion;
-        $upgrade->agente              = $user_id;
-        $upgrade->revisados           = $request ->revisados;
-        $upgrade->estadorevisado      = $request ->estadorevisado;
-        $upgrade->obs2                = $request ->obs2;
-        $upgrade->backoffice          = $user_id;
-        $upgrade->save();
+        // $upgrade = new upgradeDigital();
+        // $upgrade->nombres             = $request ->nombres;
+        // $upgrade->documento           = $request ->documento;
+        // $upgrade->correo              = $request ->correo;
+        // $upgrade->fventa              = $request ->fventa;
+        // $upgrade->numero              = $request ->numero;
+        // $upgrade->corte               = $request ->corte;
+        // $upgrade->selector            = $request ->selector;
+        // $upgrade->planhistorico       = $request->planhistorico;
+        // $upgrade->planventa           = $request->planadquiere;
+        // $upgrade->activacion          = $request ->activacion;
+        // $upgrade->ngrabacion          = $request ->ngrabacion;
+        // $upgrade->orden               = $request ->orden;
+        // $upgrade->observacion         = $request ->observacion;
+        // $upgrade->agente              = $user_id;
+        // $upgrade->revisados           = $request ->revisados;
+        // $upgrade->estadorevisado      = $request ->estadorevisado;
+        // $upgrade->obs2                = $request ->obs2;
+        // $upgrade->backoffice          = $user_id;
+        // $upgrade->save();
+        // return back() ;
+        upgradeDigital::insert($datosUpgrade);
         return back() ;
     }
 
@@ -117,6 +139,11 @@ class UpgradeDigitalController extends Controller
      */
     public function edit($id)
     {
+        Carbon::setLocale('co');
+        $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
+        $user_id = Auth::user()->cedula;
+        $user_nombre = Auth::user()->name;
         $upgrade = upgradeDigital::all();
         $depto = Departamentos::all();
         $tipoCliente = TipoCliente::all();
@@ -124,14 +151,9 @@ class UpgradeDigitalController extends Controller
         $origen = Origen::all();
         $revisadoses = Revisados::all();
         $usuarios = User::all();
-
-
         $this->authorize('haveaccess','upgradedigital.edit');
-
-
-
-       $upgrade=upgradeDigital::findOrFail($id);
-        return view('upgradedigital.edit',compact('upgrade','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
+        $upgrade=upgradeDigital::findOrFail($id);
+        return view('upgradedigital.edit',compact('user_id','user_nombre','date','hora','upgrade','depto','revisadoses','tipoCliente','origen','planadquiere', 'usuarios'));
     }
 
     /**
@@ -144,6 +166,9 @@ class UpgradeDigitalController extends Controller
     public function update(Request $request, $id)
     {
 
+	    Carbon::setLocale('co');
+	    $date = Carbon::now()->format('Y-m-d');
+        $hora = Carbon::now()->format('H:i:s');
         $usuarios = User::all();
         $user_id = Auth::user()->id;
         $user_nombre = Auth::user()->name;
@@ -151,7 +176,7 @@ class UpgradeDigitalController extends Controller
         $datosUpgrade=request()->except(['_token','_method']);
         upgradeDigital::where('id','=',$id)->update($datosUpgrade);
         $upgrade=upgradeDigital::findOrFail($id);
-        return view('upgradedigital.edit',compact('upgrade', 'usuarios','revisadoses'));
+        return view('upgradedigital.edit',compact('user_id','user_nombre','date','hora','upgrade', 'usuarios','revisadoses'));
     }
 
     /**
